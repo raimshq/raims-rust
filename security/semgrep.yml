@@ -1,0 +1,30 @@
+rules:
+  - id: raims.rust.tls-validation-disabled
+    languages: [generic]
+    severity: ERROR
+    message: Keep TLS certificate and hostname verification enabled.
+    pattern-regex: '\.danger_accept_invalid_(?:certs|hostnames)\s*\(\s*true\s*\)'
+  - id: raims.rust.unsafe-code
+    languages: [generic]
+    severity: ERROR
+    message: Preserve the SDK prohibition on unsafe code.
+    pattern-regex: '\bunsafe\s+(?:fn\b|impl\b|\{)'
+  - id: raims.rust.embedded-private-key
+    languages: [generic]
+    severity: ERROR
+    message: Load private keys from the application's secret store.
+    pattern-regex: '-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----[\s]+[A-Za-z0-9+/=]{32}'
+  - id: raims.rust.embedded-github-token
+    languages: [generic]
+    severity: ERROR
+    message: Keep access tokens outside source files.
+    pattern-regex: '\b(?:gh[pousr]_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{82})\b'
+  - id: raims.rust.tooling-shell-command
+    languages: [python]
+    severity: ERROR
+    message: Use argument lists without a command shell.
+    pattern-either:
+      - pattern: subprocess.run(..., shell=True, ...)
+      - pattern: subprocess.call(..., shell=True, ...)
+      - pattern: subprocess.Popen(..., shell=True, ...)
+      - pattern: os.system(...)

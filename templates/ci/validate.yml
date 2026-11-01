@@ -1,0 +1,87 @@
+# Template for future activation on authorized runners.
+name: Validate Rust SDK
+
+on:
+  push:
+    branches: ['**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: raims-rust-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  RAIMS_RUST_TOOLKIT_REF: ${{ vars.RAIMS_RUST_TOOLKIT_REF }}
+
+jobs:
+  validateRust:
+    if: github.repository == 'raimshq/raims-rust'
+    strategy:
+      fail-fast: false
+      matrix:
+        rust: ['1.90.0', 'stable']
+    runs-on:
+      - codebuild-raims-github-actions-${{ github.run_id }}-${{ github.run_attempt }}
+      - rust-sdk-check-${{ matrix.rust }}
+    timeout-minutes: 30
+    env:
+      RUSTUP_TOOLCHAIN: ${{ matrix.rust }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout the repository commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ github.sha }}
+          path: Raims-Rust
+          persist-credentials: false
+
+      - name: Install the selected Rust toolchain
+        run: rustup toolchain install '${{ matrix.rust }}' --profile minimal --component clippy,rustfmt
+
+      - name: Require reviewed validation tooling
+        run: |
+          python - <<'PY'
+          import os
+          import re
+          if not re.fullmatch(r'[0-9a-f]{40}', os.environ.get('RAIMS_RUST_TOOLKIT_REF', '')):
+              raise SystemExit('Configure RAIMS_RUST_TOOLKIT_REF with the reviewed Toolkit commit SHA.')
+          PY
+
+      - name: Create a read-only validation source token
+        id: sources
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3
+        with:
+          client-id: ${{ vars.RAIMS_CI_SOURCE_READER_CLIENT_ID }}
+          private-key: ${{ secrets.RAIMS_CI_SOURCE_READER_PRIVATE_KEY }}
+          owner: raimshq
+          repositories: Raims-Developer-Toolkit
+          permission-contents: read
+
+      - name: Checkout the reviewed validation tooling
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          repository: raimshq/Raims-Developer-Toolkit
+          ref: ${{ env.RAIMS_RUST_TOOLKIT_REF }}
+          path: Developer-Toolkit
+          token: ${{ steps.sources.outputs.token }}
+          persist-credentials: false
+
+      - name: Run the canonical checks
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          import shutil
+          import subprocess
+          import sys
+          workspace = Path(os.environ['GITHUB_WORKSPACE'])
+          shutil.copyfile(workspace / 'Raims-Rust/AGENTS.md', workspace / 'AGENTS.md')
+          output = workspace / '.tmp/raims-rust-sdk' / ('ci-' + os.environ['GITHUB_RUN_ID'] + '-' + os.environ['GITHUB_RUN_ATTEMPT'])
+          subprocess.run([sys.executable, str(workspace / 'Raims-Rust/scripts/check.py'), '--output', str(output), '--prepare-tools'], check=True)
+          PY

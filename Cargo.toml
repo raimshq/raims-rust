@@ -1,0 +1,29 @@
+[package]
+name = "raims"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.90"
+description = "Official Rust SDK for the Raims public API"
+license = "MIT"
+readme = "README.md"
+homepage = "https://docs.raims.com/en/api"
+repository = "https://github.com/raimshq/raims-rust"
+keywords = ["raims", "payments", "api", "sdk"]
+categories = ["api-bindings", "asynchronous"]
+include = ["src/**", "Cargo.toml", "Cargo.lock", "README.md", "LICENSE", "CHANGELOG.md", "CONTRIBUTING.md", "docs/maintenance.md", "docs/usage.md", "docs/installation.md", "docs/pagination.md", "docs/errors-and-retries.md", "docs/webhooks.md", "docs/reference.md", "SECURITY.md"]
+autotests = false
+autoexamples = false
+autobenches = false
+
+[lib]
+doctest = false
+
+[dependencies]
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = { version = "=1.0.154", features = ["arbitrary_precision"] }
+reqwest = { version = "=0.12.28", default-features = false, features = ["rustls-tls"] }
+tokio = { version = "=1.54.1", features = ["rt", "time"] }
+regex = "=1.13.1"
+hmac = "=0.12.1"
+sha2 = "=0.10.9"
+httpdate = "=1.0.3"

@@ -1,0 +1,20 @@
+/target/
+/dist/
+/build/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+*.log
+*.crate
+/tests/
+/examples/
+/benches/
+
+# Internal planning belongs in private tracking outside this repository.
+[Tt][Oo][Dd][Oo]
+[Tt][Oo][Dd][Oo][._-]*
+[Bb][Aa][Cc][Kk][Ll][Oo][Gg]
+[Bb][Aa][Cc][Kk][Ll][Oo][Gg][._-]*
+[Rr][Oo][Aa][Dd][Mm][Aa][Pp]
+[Rr][Oo][Aa][Dd][Mm][Aa][Pp][._-]*
