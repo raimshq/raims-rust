@@ -99,7 +99,7 @@ difference between leaving an input absent, clearing it, and setting a value.
 - [Errors, idempotency, and retries](docs/errors-and-retries.md)
 - [Receiving webhooks](docs/webhooks.md)
 - [Endpoint reference](docs/reference.md)
-- [Contributing](CONTRIBUTING.md), [maintenance](docs/maintenance.md), and [security](SECURITY.md)
+- [Contributing](CONTRIBUTING.md) and [security](SECURITY.md)
 - [Public API documentation](https://docs.raims.com/en/api)
 
 Distributed under the [MIT license](LICENSE).
