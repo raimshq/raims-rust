@@ -1,0 +1,122 @@
+name: Publish Rust SDK
+'on':
+  release:
+    types:
+    - published
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: raims-rust-crates-release
+  cancel-in-progress: false
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONOPTIMIZE: '0'
+  RAIMS_RUST_TOOLKIT_REF: 3bd76e0badb1259dcb81e9b51e2c59681e82f30f
+jobs:
+  validateRelease:
+    name: validateRelease
+    permissions:
+      contents: write
+      actions: read
+    if: github.repository == 'raimshq/raims-rust' && github.event.action == 'published' && !github.event.release.draft &&
+      !github.event.release.prerelease
+    runs-on:
+    - codebuild-raims-github-actions-${{ github.run_id }}-${{ github.run_attempt }}
+    - rust-sdk-release-check
+    timeout-minutes: 25
+    outputs:
+      artifact_id: ${{ steps.upload.outputs.artifact-id }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - name: Checkout the release commit
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      with:
+        ref: ${{ github.sha }}
+        fetch-depth: 0
+        path: Raims-Rust
+        persist-credentials: false
+    - name: Setup Python
+      uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+      with:
+        python-version: 3.12.14
+    - name: Verify release, prior validation, and approved distribution bytes
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      run: python Raims-Rust/scripts/release.py prepare --source Raims-Rust --artifact .tmp/raims-rust-sdk/crates-upload
+    - name: Upload the approved crate and public provenance
+      id: upload
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+      with:
+        name: raims-crates-${{ github.run_id }}-${{ github.run_attempt }}
+        path: |
+          .tmp/raims-rust-sdk/crates-upload/dist/*
+          .tmp/raims-rust-sdk/crates-upload/release-manifest.json
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 0
+  publishCrate:
+    name: publishCrate
+    needs: validateRelease
+    if: github.repository == 'raimshq/raims-rust' && github.event.action == 'published' && !github.event.release.draft &&
+      !github.event.release.prerelease
+    environment:
+      name: crates-io
+      url: https://crates.io/crates/raims
+    runs-on:
+    - codebuild-raims-github-actions-${{ github.run_id }}-${{ github.run_attempt }}
+    - rust-sdk-crates-publish
+    timeout-minutes: 25
+    permissions:
+      contents: read
+      actions: read
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - name: Checkout the release commit
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      with:
+        ref: ${{ github.sha }}
+        fetch-depth: 0
+        path: Raims-Rust
+        persist-credentials: false
+    - name: Setup Python
+      uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+      with:
+        python-version: 3.12.14
+    - name: Download the approved crate from this validation job
+      uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
+      with:
+        artifact-ids: ${{ needs.validateRelease.outputs.artifact_id }}
+        path: .tmp/raims-rust-sdk/crates-upload
+        merge-multiple: true
+        digest-mismatch: error
+    - name: Verify release and approved bytes before using publishing credentials
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        CRATES_IO_OWNER: ${{ vars.CRATES_IO_OWNER }}
+      run: python Raims-Rust/scripts/release.py verify --source Raims-Rust --artifact .tmp/raims-rust-sdk/crates-upload
+      id: verify
+    - name: Validate permanent crates.io credential configuration
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        CRATES_IO_OWNER: ${{ vars.CRATES_IO_OWNER }}
+        CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        CRATES_IO_TOKEN_POLICY: ${{ vars.CRATES_IO_TOKEN_POLICY }}
+      run: python Raims-Rust/scripts/release.py credential --source Raims-Rust --artifact .tmp/raims-rust-sdk/crates-upload
+    - name: Publish the exact approved crate
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        CRATES_IO_OWNER: ${{ vars.CRATES_IO_OWNER }}
+        CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        CRATES_IO_TOKEN_POLICY: ${{ vars.CRATES_IO_TOKEN_POLICY }}
+      run: python Raims-Rust/scripts/release.py publish --source Raims-Rust --artifact .tmp/raims-rust-sdk/crates-upload
+      if: steps.verify.outputs.publishRequired == 'true'
+    - name: Confirm the public crate and sparse registry bytes
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        CRATES_IO_OWNER: ${{ vars.CRATES_IO_OWNER }}
+      run: python Raims-Rust/scripts/release.py confirm --source Raims-Rust --artifact .tmp/raims-rust-sdk/crates-upload

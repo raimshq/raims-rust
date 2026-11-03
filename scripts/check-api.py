@@ -18,7 +18,7 @@ BASELINE = ROOT / "contracts/rust-api.json"
 # tokens, so formatting and prose changes do not alter the compatibility surface.
 LEXER = re.compile(r'''//[^\n]*|/\*.*?\*/|r\#*".*?"\#*|b?"(?:\\.|[^"\\])*"|b?'(?:\\.|[^'\\])'|[A-Za-z_]\w*|[0-9]+(?:\.[0-9]+)*|->|::|=>|[^\s]''', re.S)
 PAIRS = {"(": ")", "[": "]", "{": "}"}
-
+WORKSPACE = next((candidate for candidate in (ROOT.parent, ROOT.parent.parent) if (candidate / "Developer-Toolkit/scripts/release-preflight/rust_sdk.py").is_file()), ROOT.parent.parent if ROOT.parent.name.casefold() == "sdks" else ROOT.parent)
 
 def tokens(text):
     return [m.group() for m in LEXER.finditer(text) if not m.group().startswith(("//", "/*"))]
@@ -209,7 +209,7 @@ def check_compiler_guarantees(guarantees, output):
         raise ValueError("Compiler compatibility guarantees are missing from the independent baseline.")
     output = output.resolve()
     try:
-        output.relative_to((ROOT.parent / ".tmp/raims-rust-sdk").resolve())
+        output.relative_to((WORKSPACE / ".tmp/raims-rust-sdk").resolve())
     except ValueError:
         raise ValueError("Compiler compatibility output must stay under the workspace SDK temporary directory.")
     output.mkdir(parents=True, exist_ok=False)
@@ -230,7 +230,7 @@ def check_compiler_guarantees(guarantees, output):
     env = {key: value for key, value in os.environ.items() if key.upper() not in {
         "RUSTFLAGS", "RUSTDOCFLAGS", "RUSTC_WRAPPER", "RUSTC_WORKSPACE_WRAPPER"}}
     env.update(PYTHONDONTWRITEBYTECODE="1")
-    env.setdefault("CARGO_TARGET_DIR", str((ROOT.parent / ".tmp/raims-rust-sdk/target").resolve()))
+    env.setdefault("CARGO_TARGET_DIR", str((WORKSPACE / ".tmp/raims-rust-sdk/target").resolve()))
     flags = {"creationflags": subprocess.CREATE_NEW_PROCESS_GROUP} if os.name == "nt" else {"start_new_session": True}
     log = output / "compiler.log"
     with log.open("wb") as stream:
@@ -266,7 +266,7 @@ def main():
     args = parser.parse_args()
     current = snapshot()
     if args.write:
-        check_compiler_guarantees(current["compiler_guarantees"], args.output or ROOT.parent / ".tmp/raims-rust-sdk" / ("api-" + uuid.uuid4().hex))
+        check_compiler_guarantees(current["compiler_guarantees"], args.output or WORKSPACE / ".tmp/raims-rust-sdk" / ("api-" + uuid.uuid4().hex))
         BASELINE.write_bytes((json.dumps(current, indent=2, ensure_ascii=False) + "\n").encode("utf-8"))
         print("Recorded {} public Rust declarations.".format(len(current["declarations"])))
         return 0
@@ -280,7 +280,7 @@ def main():
             for row in sorted(rows)[:8]:
                 print(label + ": " + row[:500], file=sys.stderr)
         raise ValueError("The public Rust surface differs from its reviewed baseline. Review compatibility before an explicit --write.")
-    check_compiler_guarantees(expected["compiler_guarantees"], args.output or ROOT.parent / ".tmp/raims-rust-sdk" / ("api-" + uuid.uuid4().hex))
+    check_compiler_guarantees(expected["compiler_guarantees"], args.output or WORKSPACE / ".tmp/raims-rust-sdk" / ("api-" + uuid.uuid4().hex))
     print("Checked {} public Rust declarations.".format(len(current["declarations"])))
     return 0
 

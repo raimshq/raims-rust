@@ -10,9 +10,9 @@ if sys.flags.optimize or sys.version_info < (3, 12):
     raise SystemExit("Complete Rust SDK validation requires Python 3.12 or later without -O/-OO. Offline generation supports Python 3.8 or later.")
 
 ROOT = Path(__file__).resolve().parent.parent
-WORKSPACE = ROOT.parent
+WORKSPACE = next((candidate for candidate in (ROOT.parent, ROOT.parent.parent) if (candidate / "Developer-Toolkit/scripts/release-preflight/rust_sdk.py").is_file()), ROOT.parent)
 VALIDATOR = WORKSPACE / "Developer-Toolkit/scripts/release-preflight/rust_sdk.py"
 
 if not VALIDATOR.is_file() or not (WORKSPACE / "AGENTS.md").is_file():
-    raise SystemExit("Validation requires the Raims engineering workspace and its sibling Developer-Toolkit checkout. No checks were run.")
+    raise SystemExit("Validation requires the Raims engineering workspace and its Developer-Toolkit checkout. No checks were run.")
 raise SystemExit(subprocess.call([sys.executable, str(VALIDATOR), "--source", str(ROOT), "--workspace", str(WORKSPACE), *sys.argv[1:]]))

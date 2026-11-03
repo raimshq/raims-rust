@@ -4,20 +4,26 @@ Official Rust SDK for the Raims public API. Use typed resource services,
 cursor pagination, structured errors, and webhook signature verification in
 server applications. Requires Rust 1.90 or later and a Tokio runtime.
 
-## Install from GitHub
+## Install from crates.io
 
-Source code and release notes are available on
-[GitHub](https://github.com/raimshq/raims-rust/releases). The crate is not yet
-available on crates.io. With Git installed, run from your application:
+Add the official [`raims` crate](https://crates.io/crates/raims) from your
+application's directory:
 
 ```sh
-cargo add raims --git https://github.com/raimshq/raims-rust
+cargo add raims
 cargo add tokio --features macros,rt-multi-thread
 ```
 
-Cargo records the selected revision in your application's lockfile. Future
-updates are not applied automatically. See [installation and updates](docs/installation.md)
-for updating the dependency, using release archives, and local source checkouts.
+Cargo selects the current compatible stable release and records the resolved
+versions in `Cargo.lock`. Keep the lockfile under version control and run
+`cargo update -p raims` to update within the manifest's requirement. See the
+installation guide when an update requires changing that requirement. Test
+your integration before deploying an update.
+
+Source code and release assets remain available on
+[GitHub](https://github.com/raimshq/raims-rust/releases). See
+[installation and updates](docs/installation.md) for migration from a Git or
+path dependency, release archives, and local source checkouts.
 
 ## First request
 

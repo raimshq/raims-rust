@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.1 - 2026-11-02
+
+The official `raims` crate is available on crates.io. Install it with
+`cargo add raims`, and update an existing registry dependency with
+`cargo update -p raims`. The installation guide explains how to migrate a
+Git or path dependency while preserving the application's lockfile.
+
+The public Rust API, pinned contract, and runtime behavior are unchanged.
+
 ## 0.1.0 - 2026-11-01
 
 First GitHub source release of the Raims Rust SDK, for server applications

@@ -1,0 +1,177 @@
+name: Validate Rust SDK
+'on':
+  push:
+    branches:
+    - '**'
+  workflow_dispatch: null
+permissions:
+  contents: read
+concurrency:
+  group: raims-rust-validation-${{ github.ref }}
+  cancel-in-progress: true
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONOPTIMIZE: '0'
+  RAIMS_RUST_TOOLKIT_REF: 3bd76e0badb1259dcb81e9b51e2c59681e82f30f
+jobs:
+  validateRustMinimum:
+    name: validateRustMinimum
+    if: github.repository == 'raimshq/raims-rust'
+    runs-on:
+    - codebuild-raims-github-actions-${{ github.run_id }}-${{ github.run_attempt }}
+    - rust-sdk-check-minimum
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: bash
+    env:
+      RUSTUP_TOOLCHAIN: 1.90.0
+      RUSTUP_HOME: ${{ github.workspace }}/.tmp/raims-rust-sdk/rustup-minimum
+      CARGO_HOME: ${{ github.workspace }}/.tmp/raims-rust-sdk/cargo-minimum
+    steps:
+    - name: Checkout the candidate commit
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      with:
+        ref: ${{ github.sha }}
+        fetch-depth: 0
+        path: Raims-Rust
+        persist-credentials: false
+    - name: Setup Python
+      uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+      with:
+        python-version: 3.12.14
+    - name: Reject tracked files excluded by repository policy
+      shell: python
+      run: |
+        import os
+        from pathlib import Path
+        import subprocess
+        import sys
+        checkout = Path(os.environ['GITHUB_WORKSPACE']) / 'Raims-Rust'
+        ignored = subprocess.check_output([
+            'git', '-C', str(checkout), 'ls-files', '--cached', '--ignored',
+            '--exclude-from=.gitignore', '-z',
+        ])
+        count = sum(bool(path) for path in ignored.split(b'\0'))
+        if count:
+            print(f'Repository policy rejects {count} tracked ignored file(s).', file=sys.stderr)
+            raise SystemExit(1)
+    - name: Create a read-only validation source token
+      id: sources
+      uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1
+      with:
+        client-id: ${{ vars.RAIMS_CI_SOURCE_READER_CLIENT_ID }}
+        private-key: ${{ secrets.RAIMS_CI_SOURCE_READER_PRIVATE_KEY }}
+        owner: raimshq
+        repositories: Raims-Developer-Toolkit
+        permission-contents: read
+    - name: Checkout the reviewed validation tooling
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      with:
+        repository: raimshq/Raims-Developer-Toolkit
+        ref: ${{ env.RAIMS_RUST_TOOLKIT_REF }}
+        path: Developer-Toolkit
+        token: ${{ steps.sources.outputs.token }}
+        persist-credentials: false
+    - name: Install the reviewed native Rust toolchain
+      run: |
+        set -euo pipefail
+        command -v rustup
+        mkdir -p "$RUSTUP_HOME" "$CARGO_HOME"
+        rustup toolchain install "$RUSTUP_TOOLCHAIN" --profile minimal --component rustfmt --component clippy
+        rustc --version
+        cargo --version
+    - name: Run the canonical Rust SDK checks
+      run: |
+        set -euo pipefail
+        cp Developer-Toolkit/internal/public-repositories/workspace/AGENTS.md AGENTS.md
+        python Developer-Toolkit/scripts/release-preflight/rust_sdk.py \
+          --source "$GITHUB_WORKSPACE/Raims-Rust" --workspace "$GITHUB_WORKSPACE" \
+          --output "$GITHUB_WORKSPACE/.tmp/raims-rust-sdk/validate-minimum-${{ github.run_id }}-${{ github.run_attempt }}" --prepare-tools
+  validateRustCurrent:
+    name: validateRustCurrent
+    if: github.repository == 'raimshq/raims-rust'
+    runs-on:
+    - codebuild-raims-github-actions-${{ github.run_id }}-${{ github.run_attempt }}
+    - rust-sdk-check-current
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: bash
+    env:
+      RUSTUP_TOOLCHAIN: 1.99.1
+      RUSTUP_HOME: ${{ github.workspace }}/.tmp/raims-rust-sdk/rustup-current
+      CARGO_HOME: ${{ github.workspace }}/.tmp/raims-rust-sdk/cargo-current
+    steps:
+    - name: Checkout the candidate commit
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      with:
+        ref: ${{ github.sha }}
+        fetch-depth: 0
+        path: Raims-Rust
+        persist-credentials: false
+    - name: Setup Python
+      uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+      with:
+        python-version: 3.12.14
+    - name: Reject tracked files excluded by repository policy
+      shell: python
+      run: |
+        import os
+        from pathlib import Path
+        import subprocess
+        import sys
+        checkout = Path(os.environ['GITHUB_WORKSPACE']) / 'Raims-Rust'
+        ignored = subprocess.check_output([
+            'git', '-C', str(checkout), 'ls-files', '--cached', '--ignored',
+            '--exclude-from=.gitignore', '-z',
+        ])
+        count = sum(bool(path) for path in ignored.split(b'\0'))
+        if count:
+            print(f'Repository policy rejects {count} tracked ignored file(s).', file=sys.stderr)
+            raise SystemExit(1)
+    - name: Create a read-only validation source token
+      id: sources
+      uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1
+      with:
+        client-id: ${{ vars.RAIMS_CI_SOURCE_READER_CLIENT_ID }}
+        private-key: ${{ secrets.RAIMS_CI_SOURCE_READER_PRIVATE_KEY }}
+        owner: raimshq
+        repositories: Raims-Developer-Toolkit
+        permission-contents: read
+    - name: Checkout the reviewed validation tooling
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      with:
+        repository: raimshq/Raims-Developer-Toolkit
+        ref: ${{ env.RAIMS_RUST_TOOLKIT_REF }}
+        path: Developer-Toolkit
+        token: ${{ steps.sources.outputs.token }}
+        persist-credentials: false
+    - name: Install the reviewed native Rust toolchain
+      run: |
+        set -euo pipefail
+        command -v rustup
+        mkdir -p "$RUSTUP_HOME" "$CARGO_HOME"
+        rustup toolchain install "$RUSTUP_TOOLCHAIN" --profile minimal --component rustfmt --component clippy
+        rustc --version
+        cargo --version
+    - name: Run the canonical Rust SDK checks
+      run: |
+        set -euo pipefail
+        cp Developer-Toolkit/internal/public-repositories/workspace/AGENTS.md AGENTS.md
+        python Developer-Toolkit/scripts/release-preflight/rust_sdk.py \
+          --source "$GITHUB_WORKSPACE/Raims-Rust" --workspace "$GITHUB_WORKSPACE" \
+          --output "$GITHUB_WORKSPACE/.tmp/raims-rust-sdk/validate-current-${{ github.run_id }}-${{ github.run_attempt }}" --prepare-tools
+    - name: Prepare the canonical crate and public provenance
+      run: python Raims-Rust/scripts/release.py stage --source Raims-Rust --artifact .tmp/raims-rust-sdk/validate-current-${{
+        github.run_id }}-${{ github.run_attempt }}
+    - name: Upload canonical Rust distribution evidence
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+      with:
+        name: raims-rust-validation-${{ github.run_id }}-${{ github.run_attempt }}
+        path: |
+          .tmp/raims-rust-sdk/validate-current-${{ github.run_id }}-${{ github.run_attempt }}/dist/*
+          .tmp/raims-rust-sdk/validate-current-${{ github.run_id }}-${{ github.run_attempt }}/release-manifest.json
+        if-no-files-found: error
+        retention-days: 14
+        compression-level: 0
