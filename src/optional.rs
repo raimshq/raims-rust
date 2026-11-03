@@ -12,6 +12,8 @@ pub enum Optional<T> {
     Value(T),
 }
 
+// Preserve the explicit, bound-free implementation recorded by the public API baseline.
+#[allow(clippy::derivable_impls)]
 impl<T> Default for Optional<T> {
     fn default() -> Self {
         Self::Unset

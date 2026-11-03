@@ -57,7 +57,7 @@ pub fn verify_webhook_signature(
         }
         let mut received = [0_u8; 32];
         let mut valid = true;
-        for (index, pair) in entry.as_bytes()[3..].chunks_exact(2).enumerate() {
+        for (index, pair) in entry.as_bytes()[3..].as_chunks::<2>().0.iter().enumerate() {
             match (hex(pair[0]), hex(pair[1])) {
                 (Some(high), Some(low)) => received[index] = (high << 4) | low,
                 _ => {
