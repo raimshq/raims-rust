@@ -12,7 +12,7 @@ concurrency:
 env:
   PYTHONDONTWRITEBYTECODE: '1'
   PYTHONOPTIMIZE: '0'
-  RAIMS_RUST_TOOLKIT_REF: 3bd76e0badb1259dcb81e9b51e2c59681e82f30f
+  RAIMS_RUST_TOOLKIT_REF: ad7ef9f75e3b21104fd13fa5762501c851dcccd9
 jobs:
   validateRustMinimum:
     name: validateRustMinimum

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.2 - 2026-11-07
+
+Response metadata now reads the canonical `Request-Id` header.
+The `X-Request-Id` fallback has been removed.
+
 ## 0.1.1 - 2026-11-02
 
 The official `raims` crate is available on crates.io. Install it with

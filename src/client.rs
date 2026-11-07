@@ -58,7 +58,7 @@ impl LastResponse {
     fn from_headers(status_code: u16, headers: &HeaderMap) -> Self {
         Self {
             status_code,
-            request_id: header(headers, "request-id").or_else(|| header(headers, "x-request-id")),
+            request_id: header(headers, "request-id"),
             idempotency_key: header(headers, "idempotency-key"),
             idempotency_replayed: header(headers, "idempotency-replayed")
                 .is_some_and(|v| v.eq_ignore_ascii_case("true")),
