@@ -235,7 +235,7 @@ fn validate(value: &Value, schema: &Value, input: bool, depth: usize) -> Result<
                     return Err(fail());
                 }
                 if schema.get("format").and_then(Value::as_str) == Some("uri")
-                    && reqwest::Url::parse(text).is_err()
+                    && url::Url::parse(text).is_err()
                 {
                     return Err(fail());
                 }
