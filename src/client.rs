@@ -187,7 +187,7 @@ impl ClientBuilder {
 
 struct Inner {
     api_key: String,
-    base_url: reqwest::Url,
+    base_url: url::Url,
     http: reqwest::Client,
     timeout: Duration,
     max_read_retries: u8,
@@ -559,7 +559,7 @@ async fn wait_for_retry(
 
 struct Prepared {
     method: reqwest::Method,
-    url: reqwest::Url,
+    url: url::Url,
     headers: HeaderMap,
     body: Option<Vec<u8>>,
 }
@@ -670,7 +670,7 @@ fn validate_retries(retries: u8) -> Result<(), Error> {
     Ok(())
 }
 
-fn validate_base(value: &str) -> Result<reqwest::Url, Error> {
+fn validate_base(value: &str) -> Result<url::Url, Error> {
     let fail = || {
         Error::validation("The base URL must be an HTTPS origin without credentials, path, query or fragment; HTTP is accepted only on loopback.")
     };
@@ -686,7 +686,7 @@ fn validate_base(value: &str) -> Result<reqwest::Url, Error> {
     if raw_authority.is_empty() || raw_authority.contains('/') {
         return Err(fail());
     }
-    let url = reqwest::Url::parse(value).map_err(|_| fail())?;
+    let url = url::Url::parse(value).map_err(|_| fail())?;
     let host = url.host_str().ok_or_else(fail)?;
     let loopback = host == "localhost"
         || host

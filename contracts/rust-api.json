@@ -5300,6 +5300,36 @@
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_ACCOUNT_RESTORED : & str = \"account.restored\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_BALANCE_HOLD_CREATED : & str = \"balance.hold.created\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_BALANCE_HOLD_RELEASED : & str = \"balance.hold.released\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_BOLETO_AVAILABLE : & str = \"boleto.available\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_BOLETO_COMPENSATED : & str = \"boleto.compensated\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_BOLETO_ISSUANCE_FAILED : & str = \"boleto.issuance_failed\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
       "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_CHARGE_CANCELED : & str = \"charge.canceled\""
     },
     {
@@ -5310,12 +5340,92 @@
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_CHARGE_EXPIRED : & str = \"charge.expired\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
       "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_CHARGE_FAILED : & str = \"charge.failed\""
     },
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_CHARGE_FULLY_REFUNDED : & str = \"charge.fully_refunded\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
       "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_CHARGE_PAID : & str = \"charge.paid\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_CHARGE_UPDATED : & str = \"charge.updated\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_CUSTOMER_CREATED : & str = \"customer.created\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_CUSTOMER_DELETED : & str = \"customer.deleted\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_CUSTOMER_UPDATED : & str = \"customer.updated\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_DISPUTE_CLOSED : & str = \"dispute.closed\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_DISPUTE_FUNDS_DEBITED : & str = \"dispute.funds_debited\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_DISPUTE_OPENED : & str = \"dispute.opened\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_DISPUTE_UPDATED : & str = \"dispute.updated\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_PAYMENT_LINK_CREATED : & str = \"payment_link.created\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_PAYMENT_LINK_UPDATED : & str = \"payment_link.updated\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_PIX_AVAILABLE : & str = \"pix.available\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_PIX_ISSUANCE_FAILED : & str = \"pix.issuance_failed\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_PIX_REFUND_RECEIVED : & str = \"pix_refund.received\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_REFUND_ACCEPTED : & str = \"refund.accepted\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -5331,6 +5441,36 @@
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
       "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_REFUND_REQUESTED : & str = \"refund.requested\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_STATEMENT_CREATED : & str = \"statement.created\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_TED_RECEIVED : & str = \"ted.received\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_WITHDRAWAL_ACCEPTED : & str = \"withdrawal.accepted\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_WITHDRAWAL_COMPLETED : & str = \"withdrawal.completed\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_WITHDRAWAL_FAILED : & str = \"withdrawal.failed\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_WITHDRAWAL_REQUESTED : & str = \"withdrawal.requested\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -5770,6 +5910,36 @@
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_ACCOUNT_RESTORED : & str = \"account.restored\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_BALANCE_HOLD_CREATED : & str = \"balance.hold.created\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_BALANCE_HOLD_RELEASED : & str = \"balance.hold.released\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_BOLETO_AVAILABLE : & str = \"boleto.available\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_BOLETO_COMPENSATED : & str = \"boleto.compensated\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_BOLETO_ISSUANCE_FAILED : & str = \"boleto.issuance_failed\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
       "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_CHARGE_CANCELED : & str = \"charge.canceled\""
     },
     {
@@ -5780,12 +5950,92 @@
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_CHARGE_EXPIRED : & str = \"charge.expired\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
       "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_CHARGE_FAILED : & str = \"charge.failed\""
     },
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_CHARGE_FULLY_REFUNDED : & str = \"charge.fully_refunded\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
       "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_CHARGE_PAID : & str = \"charge.paid\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_CHARGE_UPDATED : & str = \"charge.updated\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_CUSTOMER_CREATED : & str = \"customer.created\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_CUSTOMER_DELETED : & str = \"customer.deleted\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_CUSTOMER_UPDATED : & str = \"customer.updated\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_DISPUTE_CLOSED : & str = \"dispute.closed\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_DISPUTE_FUNDS_DEBITED : & str = \"dispute.funds_debited\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_DISPUTE_OPENED : & str = \"dispute.opened\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_DISPUTE_UPDATED : & str = \"dispute.updated\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_PAYMENT_LINK_CREATED : & str = \"payment_link.created\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_PAYMENT_LINK_UPDATED : & str = \"payment_link.updated\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_PIX_AVAILABLE : & str = \"pix.available\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_PIX_ISSUANCE_FAILED : & str = \"pix.issuance_failed\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_PIX_REFUND_RECEIVED : & str = \"pix_refund.received\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_REFUND_ACCEPTED : & str = \"refund.accepted\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -5801,6 +6051,36 @@
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
       "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_REFUND_REQUESTED : & str = \"refund.requested\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_STATEMENT_CREATED : & str = \"statement.created\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_TED_RECEIVED : & str = \"ted.received\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_WITHDRAWAL_ACCEPTED : & str = \"withdrawal.accepted\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_WITHDRAWAL_COMPLETED : & str = \"withdrawal.completed\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_WITHDRAWAL_FAILED : & str = \"withdrawal.failed\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_WITHDRAWAL_REQUESTED : & str = \"withdrawal.requested\""
     },
     {
       "scope": "src/enum_values_generated.rs",
