@@ -192,6 +192,18 @@ impl std::fmt::Debug for CreateWithdrawalRequest {
 }
 
 #[derive(Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct DeliverWebhookEventRequest {
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub webhook_id: Optional<String>,
+}
+
+impl std::fmt::Debug for DeliverWebhookEventRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("DeliverWebhookEventRequest { .. }")
+    }
+}
+
+#[derive(Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct IssueSimulationPaymentRequest {
     #[serde(default, skip_serializing_if = "Optional::is_unset")]
     pub payment_method: Optional<i64>,
@@ -212,6 +224,18 @@ pub struct RemoveCustomersRequest {
 impl std::fmt::Debug for RemoveCustomersRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str("RemoveCustomersRequest { .. }")
+    }
+}
+
+#[derive(Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct ResendWebhookDeliveriesRequest {
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub delivery_ids: Optional<Vec<String>>,
+}
+
+impl std::fmt::Debug for ResendWebhookDeliveriesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("ResendWebhookDeliveriesRequest { .. }")
     }
 }
 
@@ -908,6 +932,98 @@ pub struct ListStatementsParams {
 impl std::fmt::Debug for ListStatementsParams {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str("ListStatementsParams { .. }")
+    }
+}
+
+#[derive(Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct ResendWebhookDeliveriesParams {
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub delivery_ids: Optional<Vec<String>>,
+}
+
+impl std::fmt::Debug for ResendWebhookDeliveriesParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("ResendWebhookDeliveriesParams { .. }")
+    }
+}
+
+#[derive(Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct ListWebhookDeliveriesParams {
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub page_size: Optional<i64>,
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub after: Optional<String>,
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub before: Optional<String>,
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub webhook_id: Optional<String>,
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub event_type: Optional<String>,
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub event_id: Optional<String>,
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub status: Optional<String>,
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub created_gte: Optional<i64>,
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub created_lte: Optional<i64>,
+}
+
+impl std::fmt::Debug for ListWebhookDeliveriesParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("ListWebhookDeliveriesParams { .. }")
+    }
+}
+
+#[derive(Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct ListWebhookDeliveryAttemptsParams {
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub page_size: Optional<i64>,
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub after: Optional<String>,
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub before: Optional<String>,
+}
+
+impl std::fmt::Debug for ListWebhookDeliveryAttemptsParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("ListWebhookDeliveryAttemptsParams { .. }")
+    }
+}
+
+#[derive(Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct DeliverWebhookEventParams {
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub webhook_id: Optional<String>,
+}
+
+impl std::fmt::Debug for DeliverWebhookEventParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("DeliverWebhookEventParams { .. }")
+    }
+}
+
+#[derive(Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct ListWebhookEventsParams {
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub page_size: Optional<i64>,
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub after: Optional<String>,
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub before: Optional<String>,
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub event_type: Optional<String>,
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub resource_id: Optional<String>,
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub created_gte: Optional<i64>,
+    #[serde(default, skip_serializing_if = "Optional::is_unset")]
+    pub created_lte: Optional<i64>,
+}
+
+impl std::fmt::Debug for ListWebhookEventsParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("ListWebhookEventsParams { .. }")
     }
 }
 

@@ -7,6 +7,46 @@
   },
   "declarations": [
     {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "# [ deprecated ( note = \"Historical webhook event code\" ) ] pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_BOLETO_AVAILABLE : & str = \"boleto.available\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "# [ deprecated ( note = \"Historical webhook event code\" ) ] pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_BOLETO_ISSUANCE_FAILED : & str = \"boleto.issuance_failed\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "# [ deprecated ( note = \"Historical webhook event code\" ) ] pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_PIX_AVAILABLE : & str = \"pix.available\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "# [ deprecated ( note = \"Historical webhook event code\" ) ] pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_PIX_ISSUANCE_FAILED : & str = \"pix.issuance_failed\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "# [ deprecated ( note = \"Historical webhook event code\" ) ] pub const WEBHOOK_EVENT_TYPE_CODE_BOLETO_AVAILABLE : & str = \"boleto.available\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "# [ deprecated ( note = \"Historical webhook event code\" ) ] pub const WEBHOOK_EVENT_TYPE_CODE_BOLETO_ISSUANCE_FAILED : & str = \"boleto.issuance_failed\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "# [ deprecated ( note = \"Historical webhook event code\" ) ] pub const WEBHOOK_EVENT_TYPE_CODE_PIX_AVAILABLE : & str = \"pix.available\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "# [ deprecated ( note = \"Historical webhook event code\" ) ] pub const WEBHOOK_EVENT_TYPE_CODE_PIX_ISSUANCE_FAILED : & str = \"pix.issuance_failed\""
+    },
+    {
       "scope": "src/client.rs",
       "kind": "struct",
       "declaration": "# [ derive ( Clone ) ] pub struct ApiResponse < T >",
@@ -109,7 +149,19 @@
     {
       "scope": "src/services_generated.rs",
       "kind": "struct",
+      "declaration": "# [ derive ( Clone , Copy ) ] pub struct WebhookDeliveriesService < ' a >",
+      "fields": []
+    },
+    {
+      "scope": "src/services_generated.rs",
+      "kind": "struct",
       "declaration": "# [ derive ( Clone , Copy ) ] pub struct WebhookEventTypesService < ' a >",
+      "fields": []
+    },
+    {
+      "scope": "src/services_generated.rs",
+      "kind": "struct",
+      "declaration": "# [ derive ( Clone , Copy ) ] pub struct WebhookEventsService < ' a >",
       "fields": []
     },
     {
@@ -407,6 +459,22 @@
     {
       "scope": "src/params_generated.rs",
       "kind": "struct",
+      "declaration": "# [ derive ( Clone , Default , serde :: Serialize , serde :: Deserialize ) ] pub struct DeliverWebhookEventParams",
+      "fields": [
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub webhook_id : Optional < String >"
+      ]
+    },
+    {
+      "scope": "src/params_generated.rs",
+      "kind": "struct",
+      "declaration": "# [ derive ( Clone , Default , serde :: Serialize , serde :: Deserialize ) ] pub struct DeliverWebhookEventRequest",
+      "fields": [
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub webhook_id : Optional < String >"
+      ]
+    },
+    {
+      "scope": "src/params_generated.rs",
+      "kind": "struct",
       "declaration": "# [ derive ( Clone , Default , serde :: Serialize , serde :: Deserialize ) ] pub struct GetBalanceForecastParams",
       "fields": [
         "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub period : Optional < String >"
@@ -545,6 +613,46 @@
     {
       "scope": "src/params_generated.rs",
       "kind": "struct",
+      "declaration": "# [ derive ( Clone , Default , serde :: Serialize , serde :: Deserialize ) ] pub struct ListWebhookDeliveriesParams",
+      "fields": [
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub page_size : Optional < i64 >",
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub after : Optional < String >",
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub before : Optional < String >",
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub webhook_id : Optional < String >",
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub event_type : Optional < String >",
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub event_id : Optional < String >",
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub status : Optional < String >",
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub created_gte : Optional < i64 >",
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub created_lte : Optional < i64 >"
+      ]
+    },
+    {
+      "scope": "src/params_generated.rs",
+      "kind": "struct",
+      "declaration": "# [ derive ( Clone , Default , serde :: Serialize , serde :: Deserialize ) ] pub struct ListWebhookDeliveryAttemptsParams",
+      "fields": [
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub page_size : Optional < i64 >",
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub after : Optional < String >",
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub before : Optional < String >"
+      ]
+    },
+    {
+      "scope": "src/params_generated.rs",
+      "kind": "struct",
+      "declaration": "# [ derive ( Clone , Default , serde :: Serialize , serde :: Deserialize ) ] pub struct ListWebhookEventsParams",
+      "fields": [
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub page_size : Optional < i64 >",
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub after : Optional < String >",
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub before : Optional < String >",
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub event_type : Optional < String >",
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub resource_id : Optional < String >",
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub created_gte : Optional < i64 >",
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub created_lte : Optional < i64 >"
+      ]
+    },
+    {
+      "scope": "src/params_generated.rs",
+      "kind": "struct",
       "declaration": "# [ derive ( Clone , Default , serde :: Serialize , serde :: Deserialize ) ] pub struct ListWebhooksParams",
       "fields": [
         "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub page_size : Optional < i64 >",
@@ -582,6 +690,22 @@
       "declaration": "# [ derive ( Clone , Default , serde :: Serialize , serde :: Deserialize ) ] pub struct RemoveCustomersRequest",
       "fields": [
         "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub identifiers : Optional < Vec < Option < String > > >"
+      ]
+    },
+    {
+      "scope": "src/params_generated.rs",
+      "kind": "struct",
+      "declaration": "# [ derive ( Clone , Default , serde :: Serialize , serde :: Deserialize ) ] pub struct ResendWebhookDeliveriesParams",
+      "fields": [
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub delivery_ids : Optional < Vec < String > >"
+      ]
+    },
+    {
+      "scope": "src/params_generated.rs",
+      "kind": "struct",
+      "declaration": "# [ derive ( Clone , Default , serde :: Serialize , serde :: Deserialize ) ] pub struct ResendWebhookDeliveriesRequest",
+      "fields": [
+        "# [ serde ( default , skip_serializing_if = \"Optional::is_unset\" ) ] pub delivery_ids : Optional < Vec < String > >"
       ]
     },
     {
@@ -909,6 +1033,7 @@
         "# [ serde ( default ) ] pub payment_method_types : Option < Vec < i64 > >",
         "# [ serde ( default ) ] pub external_reference : Option < String >",
         "pub metadata : BTreeMap < String , String >",
+        "# [ serde ( default ) ] pub boleto_settlement : Option < ChargeBoletoSettlement >",
         "# [ serde ( default , flatten ) ] pub extra_fields : BTreeMap < String , serde_json :: Value >"
       ]
     },
@@ -932,6 +1057,17 @@
         "pub line_digits : String",
         "pub barcode : String",
         "pub due_date : i64",
+        "# [ serde ( default , flatten ) ] pub extra_fields : BTreeMap < String , serde_json :: Value >"
+      ]
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "struct",
+      "declaration": "# [ derive ( Clone , serde :: Serialize ) ] pub struct ChargeBoletoSettlement",
+      "fields": [
+        "# [ serde ( default ) ] pub observed_amount_cents : Option < i64 >",
+        "# [ serde ( default ) ] pub confirmed_total_cents : Option < i64 >",
+        "# [ serde ( default ) ] pub overpayment_cents : Option < i64 >",
         "# [ serde ( default , flatten ) ] pub extra_fields : BTreeMap < String , serde_json :: Value >"
       ]
     },
@@ -1597,6 +1733,88 @@
     {
       "scope": "src/models_generated.rs",
       "kind": "struct",
+      "declaration": "# [ derive ( Clone , serde :: Serialize ) ] pub struct WebhookAdvanceAccepted",
+      "fields": [
+        "pub delivery_id : String",
+        "# [ serde ( default , flatten ) ] pub extra_fields : BTreeMap < String , serde_json :: Value >"
+      ]
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "struct",
+      "declaration": "# [ derive ( Clone , serde :: Serialize ) ] pub struct WebhookAttempt",
+      "fields": [
+        "pub id : String",
+        "pub delivery_id : String",
+        "pub attempt_number : i64",
+        "pub created_at : i64",
+        "# [ serde ( default ) ] pub status_code : Option < i64 >",
+        "pub duration_ms : serde_json :: Number",
+        "# [ serde ( default ) ] pub destination_ip : Option < String >",
+        "# [ serde ( default ) ] pub error_code : Option < String >",
+        "# [ serde ( default ) ] pub endpoint_url : Option < String >",
+        "pub request_available : bool",
+        "pub response_body_available : bool",
+        "pub response_body_truncated : bool",
+        "# [ serde ( default , flatten ) ] pub extra_fields : BTreeMap < String , serde_json :: Value >"
+      ]
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "struct",
+      "declaration": "# [ derive ( Clone , serde :: Serialize ) ] pub struct WebhookAttemptDetail",
+      "fields": [
+        "# [ serde ( default ) ] pub request_body : Option < String >",
+        "# [ serde ( default ) ] pub response_body : Option < String >",
+        "pub id : String",
+        "pub delivery_id : String",
+        "pub attempt_number : i64",
+        "pub created_at : i64",
+        "# [ serde ( default ) ] pub status_code : Option < i64 >",
+        "pub duration_ms : serde_json :: Number",
+        "# [ serde ( default ) ] pub destination_ip : Option < String >",
+        "# [ serde ( default ) ] pub error_code : Option < String >",
+        "# [ serde ( default ) ] pub endpoint_url : Option < String >",
+        "pub request_available : bool",
+        "pub response_body_available : bool",
+        "pub response_body_truncated : bool",
+        "# [ serde ( default , flatten ) ] pub extra_fields : BTreeMap < String , serde_json :: Value >"
+      ]
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "struct",
+      "declaration": "# [ derive ( Clone , serde :: Serialize ) ] pub struct WebhookAttemptListResponse",
+      "fields": [
+        "pub list : Vec < WebhookAttempt >",
+        "pub page : WebhookDeliveryPage",
+        "# [ serde ( default , flatten ) ] pub extra_fields : BTreeMap < String , serde_json :: Value >"
+      ]
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "struct",
+      "declaration": "# [ derive ( Clone , serde :: Serialize ) ] pub struct WebhookBulkResendAccepted",
+      "fields": [
+        "pub results : Vec < WebhookBulkResendItem >",
+        "# [ serde ( default , flatten ) ] pub extra_fields : BTreeMap < String , serde_json :: Value >"
+      ]
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "struct",
+      "declaration": "# [ derive ( Clone , serde :: Serialize ) ] pub struct WebhookBulkResendItem",
+      "fields": [
+        "pub source_delivery_id : String",
+        "# [ serde ( default ) ] pub delivery_id : Option < String >",
+        "# [ serde ( default ) ] pub event_id : Option < String >",
+        "# [ serde ( default ) ] pub error : Option < Error >",
+        "# [ serde ( default , flatten ) ] pub extra_fields : BTreeMap < String , serde_json :: Value >"
+      ]
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "struct",
       "declaration": "# [ derive ( Clone , serde :: Serialize ) ] pub struct WebhookCreated",
       "fields": [
         "pub id : String",
@@ -1612,6 +1830,94 @@
         "pub secret_key : String",
         "pub is_paused : bool",
         "# [ serde ( default ) ] pub paused_at : Option < i64 >",
+        "# [ serde ( default , flatten ) ] pub extra_fields : BTreeMap < String , serde_json :: Value >"
+      ]
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "struct",
+      "declaration": "# [ derive ( Clone , serde :: Serialize ) ] pub struct WebhookDelivery",
+      "fields": [
+        "pub id : String",
+        "# [ serde ( default ) ] pub webhook_id : Option < String >",
+        "pub event_id : String",
+        "pub event_type : String",
+        "pub status : String",
+        "pub created_at : i64",
+        "pub event_created_at : i64",
+        "pub deadline_at : i64",
+        "# [ serde ( default ) ] pub next_attempt_at : Option < i64 >",
+        "pub updated_at : i64",
+        "# [ serde ( default , flatten ) ] pub extra_fields : BTreeMap < String , serde_json :: Value >"
+      ]
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "struct",
+      "declaration": "# [ derive ( Clone , serde :: Serialize ) ] pub struct WebhookDeliveryListResponse",
+      "fields": [
+        "pub list : Vec < WebhookDelivery >",
+        "pub page : WebhookDeliveryPage",
+        "# [ serde ( default , flatten ) ] pub extra_fields : BTreeMap < String , serde_json :: Value >"
+      ]
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "struct",
+      "declaration": "# [ derive ( Clone , serde :: Serialize ) ] pub struct WebhookDeliveryPage",
+      "fields": [
+        "pub page_size : i64",
+        "pub has_next : bool",
+        "pub has_previous : bool",
+        "# [ serde ( default ) ] pub next_after : Option < String >",
+        "# [ serde ( default ) ] pub previous_before : Option < String >",
+        "# [ serde ( default , flatten ) ] pub extra_fields : BTreeMap < String , serde_json :: Value >"
+      ]
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "struct",
+      "declaration": "# [ derive ( Clone , serde :: Serialize ) ] pub struct WebhookDeliveryResendAccepted",
+      "fields": [
+        "pub delivery_id : String",
+        "pub event_id : String",
+        "# [ serde ( default , flatten ) ] pub extra_fields : BTreeMap < String , serde_json :: Value >"
+      ]
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "struct",
+      "declaration": "# [ derive ( Clone , serde :: Serialize ) ] pub struct WebhookEvent",
+      "fields": [
+        "pub id : String",
+        "pub event_type : String",
+        "pub created_at : i64",
+        "pub resource_type : String",
+        "pub resource_id : String",
+        "# [ serde ( default , flatten ) ] pub extra_fields : BTreeMap < String , serde_json :: Value >"
+      ]
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "struct",
+      "declaration": "# [ derive ( Clone , serde :: Serialize ) ] pub struct WebhookEventDetail",
+      "fields": [
+        "pub payload : String",
+        "pub id : String",
+        "pub event_type : String",
+        "pub created_at : i64",
+        "pub resource_type : String",
+        "pub resource_id : String",
+        "# [ serde ( default , flatten ) ] pub extra_fields : BTreeMap < String , serde_json :: Value >"
+      ]
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "struct",
+      "declaration": "# [ derive ( Clone , serde :: Serialize ) ] pub struct WebhookEventListResponse",
+      "fields": [
+        "pub list : Vec < WebhookEvent >",
+        "pub page : WebhookDeliveryPage",
         "# [ serde ( default , flatten ) ] pub extra_fields : BTreeMap < String , serde_json :: Value >"
       ]
     },
@@ -1943,6 +2249,11 @@
       "declaration": "fn deserialize < D : serde :: Deserializer < ' de > > ( deserializer : D ) -> Result < Self , D :: Error >"
     },
     {
+      "scope": "src/models_generated.rs :: impl < ' de > serde :: Deserialize < ' de > for ChargeBoletoSettlement",
+      "kind": "fn",
+      "declaration": "fn deserialize < D : serde :: Deserializer < ' de > > ( deserializer : D ) -> Result < Self , D :: Error >"
+    },
+    {
       "scope": "src/models_generated.rs :: impl < ' de > serde :: Deserialize < ' de > for ChargeCreated",
       "kind": "fn",
       "declaration": "fn deserialize < D : serde :: Deserializer < ' de > > ( deserializer : D ) -> Result < Self , D :: Error >"
@@ -2188,7 +2499,72 @@
       "declaration": "fn deserialize < D : serde :: Deserializer < ' de > > ( deserializer : D ) -> Result < Self , D :: Error >"
     },
     {
+      "scope": "src/models_generated.rs :: impl < ' de > serde :: Deserialize < ' de > for WebhookAdvanceAccepted",
+      "kind": "fn",
+      "declaration": "fn deserialize < D : serde :: Deserializer < ' de > > ( deserializer : D ) -> Result < Self , D :: Error >"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl < ' de > serde :: Deserialize < ' de > for WebhookAttempt",
+      "kind": "fn",
+      "declaration": "fn deserialize < D : serde :: Deserializer < ' de > > ( deserializer : D ) -> Result < Self , D :: Error >"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl < ' de > serde :: Deserialize < ' de > for WebhookAttemptDetail",
+      "kind": "fn",
+      "declaration": "fn deserialize < D : serde :: Deserializer < ' de > > ( deserializer : D ) -> Result < Self , D :: Error >"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl < ' de > serde :: Deserialize < ' de > for WebhookAttemptListResponse",
+      "kind": "fn",
+      "declaration": "fn deserialize < D : serde :: Deserializer < ' de > > ( deserializer : D ) -> Result < Self , D :: Error >"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl < ' de > serde :: Deserialize < ' de > for WebhookBulkResendAccepted",
+      "kind": "fn",
+      "declaration": "fn deserialize < D : serde :: Deserializer < ' de > > ( deserializer : D ) -> Result < Self , D :: Error >"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl < ' de > serde :: Deserialize < ' de > for WebhookBulkResendItem",
+      "kind": "fn",
+      "declaration": "fn deserialize < D : serde :: Deserializer < ' de > > ( deserializer : D ) -> Result < Self , D :: Error >"
+    },
+    {
       "scope": "src/models_generated.rs :: impl < ' de > serde :: Deserialize < ' de > for WebhookCreated",
+      "kind": "fn",
+      "declaration": "fn deserialize < D : serde :: Deserializer < ' de > > ( deserializer : D ) -> Result < Self , D :: Error >"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl < ' de > serde :: Deserialize < ' de > for WebhookDelivery",
+      "kind": "fn",
+      "declaration": "fn deserialize < D : serde :: Deserializer < ' de > > ( deserializer : D ) -> Result < Self , D :: Error >"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl < ' de > serde :: Deserialize < ' de > for WebhookDeliveryListResponse",
+      "kind": "fn",
+      "declaration": "fn deserialize < D : serde :: Deserializer < ' de > > ( deserializer : D ) -> Result < Self , D :: Error >"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl < ' de > serde :: Deserialize < ' de > for WebhookDeliveryPage",
+      "kind": "fn",
+      "declaration": "fn deserialize < D : serde :: Deserializer < ' de > > ( deserializer : D ) -> Result < Self , D :: Error >"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl < ' de > serde :: Deserialize < ' de > for WebhookDeliveryResendAccepted",
+      "kind": "fn",
+      "declaration": "fn deserialize < D : serde :: Deserializer < ' de > > ( deserializer : D ) -> Result < Self , D :: Error >"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl < ' de > serde :: Deserialize < ' de > for WebhookEvent",
+      "kind": "fn",
+      "declaration": "fn deserialize < D : serde :: Deserializer < ' de > > ( deserializer : D ) -> Result < Self , D :: Error >"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl < ' de > serde :: Deserialize < ' de > for WebhookEventDetail",
+      "kind": "fn",
+      "declaration": "fn deserialize < D : serde :: Deserializer < ' de > > ( deserializer : D ) -> Result < Self , D :: Error >"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl < ' de > serde :: Deserialize < ' de > for WebhookEventListResponse",
       "kind": "fn",
       "declaration": "fn deserialize < D : serde :: Deserializer < ' de > > ( deserializer : D ) -> Result < Self , D :: Error >"
     },
@@ -2384,6 +2760,11 @@
     },
     {
       "scope": "src/models_generated.rs :: impl std :: fmt :: Debug for ChargeBoletoPaymentInformation",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl std :: fmt :: Debug for ChargeBoletoSettlement",
       "kind": "fn",
       "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
     },
@@ -2633,7 +3014,72 @@
       "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
     },
     {
+      "scope": "src/models_generated.rs :: impl std :: fmt :: Debug for WebhookAdvanceAccepted",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl std :: fmt :: Debug for WebhookAttempt",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl std :: fmt :: Debug for WebhookAttemptDetail",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl std :: fmt :: Debug for WebhookAttemptListResponse",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl std :: fmt :: Debug for WebhookBulkResendAccepted",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl std :: fmt :: Debug for WebhookBulkResendItem",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
       "scope": "src/models_generated.rs :: impl std :: fmt :: Debug for WebhookCreated",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl std :: fmt :: Debug for WebhookDelivery",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl std :: fmt :: Debug for WebhookDeliveryListResponse",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl std :: fmt :: Debug for WebhookDeliveryPage",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl std :: fmt :: Debug for WebhookDeliveryResendAccepted",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl std :: fmt :: Debug for WebhookEvent",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl std :: fmt :: Debug for WebhookEventDetail",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
+      "scope": "src/models_generated.rs :: impl std :: fmt :: Debug for WebhookEventListResponse",
       "kind": "fn",
       "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
     },
@@ -2838,6 +3284,16 @@
       "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
     },
     {
+      "scope": "src/params_generated.rs :: impl std :: fmt :: Debug for DeliverWebhookEventParams",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
+      "scope": "src/params_generated.rs :: impl std :: fmt :: Debug for DeliverWebhookEventRequest",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
       "scope": "src/params_generated.rs :: impl std :: fmt :: Debug for GetBalanceForecastParams",
       "kind": "fn",
       "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
@@ -2893,6 +3349,21 @@
       "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
     },
     {
+      "scope": "src/params_generated.rs :: impl std :: fmt :: Debug for ListWebhookDeliveriesParams",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
+      "scope": "src/params_generated.rs :: impl std :: fmt :: Debug for ListWebhookDeliveryAttemptsParams",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
+      "scope": "src/params_generated.rs :: impl std :: fmt :: Debug for ListWebhookEventsParams",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
       "scope": "src/params_generated.rs :: impl std :: fmt :: Debug for ListWebhooksParams",
       "kind": "fn",
       "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
@@ -2909,6 +3380,16 @@
     },
     {
       "scope": "src/params_generated.rs :: impl std :: fmt :: Debug for RemoveCustomersRequest",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
+      "scope": "src/params_generated.rs :: impl std :: fmt :: Debug for ResendWebhookDeliveriesParams",
+      "kind": "fn",
+      "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
+    },
+    {
+      "scope": "src/params_generated.rs :: impl std :: fmt :: Debug for ResendWebhookDeliveriesRequest",
       "kind": "fn",
       "declaration": "fn fmt ( & self , f : & mut std :: fmt :: Formatter < ' _ > ) -> std :: fmt :: Result"
     },
@@ -3071,6 +3552,11 @@
       "scope": "src/models_generated.rs",
       "kind": "implementation",
       "declaration": "impl < ' de > serde :: Deserialize < ' de > for ChargeBoletoPaymentInformation"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl < ' de > serde :: Deserialize < ' de > for ChargeBoletoSettlement"
     },
     {
       "scope": "src/models_generated.rs",
@@ -3320,7 +3806,72 @@
     {
       "scope": "src/models_generated.rs",
       "kind": "implementation",
+      "declaration": "impl < ' de > serde :: Deserialize < ' de > for WebhookAdvanceAccepted"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl < ' de > serde :: Deserialize < ' de > for WebhookAttempt"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl < ' de > serde :: Deserialize < ' de > for WebhookAttemptDetail"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl < ' de > serde :: Deserialize < ' de > for WebhookAttemptListResponse"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl < ' de > serde :: Deserialize < ' de > for WebhookBulkResendAccepted"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl < ' de > serde :: Deserialize < ' de > for WebhookBulkResendItem"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
       "declaration": "impl < ' de > serde :: Deserialize < ' de > for WebhookCreated"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl < ' de > serde :: Deserialize < ' de > for WebhookDelivery"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl < ' de > serde :: Deserialize < ' de > for WebhookDeliveryListResponse"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl < ' de > serde :: Deserialize < ' de > for WebhookDeliveryPage"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl < ' de > serde :: Deserialize < ' de > for WebhookDeliveryResendAccepted"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl < ' de > serde :: Deserialize < ' de > for WebhookEvent"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl < ' de > serde :: Deserialize < ' de > for WebhookEventDetail"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl < ' de > serde :: Deserialize < ' de > for WebhookEventListResponse"
     },
     {
       "scope": "src/models_generated.rs",
@@ -3545,7 +4096,17 @@
     {
       "scope": "src/services_generated.rs",
       "kind": "implementation",
+      "declaration": "impl WebhookDeliveriesService < ' _ >"
+    },
+    {
+      "scope": "src/services_generated.rs",
+      "kind": "implementation",
       "declaration": "impl WebhookEventTypesService < ' _ >"
+    },
+    {
+      "scope": "src/services_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl WebhookEventsService < ' _ >"
     },
     {
       "scope": "src/services_generated.rs",
@@ -3646,6 +4207,11 @@
       "scope": "src/models_generated.rs",
       "kind": "implementation",
       "declaration": "impl std :: fmt :: Debug for ChargeBoletoPaymentInformation"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for ChargeBoletoSettlement"
     },
     {
       "scope": "src/models_generated.rs",
@@ -3858,6 +4424,16 @@
       "declaration": "impl std :: fmt :: Debug for DeleteCustomersBatchParams"
     },
     {
+      "scope": "src/params_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for DeliverWebhookEventParams"
+    },
+    {
+      "scope": "src/params_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for DeliverWebhookEventRequest"
+    },
+    {
       "scope": "src/models_generated.rs",
       "kind": "implementation",
       "declaration": "impl std :: fmt :: Debug for Dispute"
@@ -3955,6 +4531,21 @@
     {
       "scope": "src/params_generated.rs",
       "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for ListWebhookDeliveriesParams"
+    },
+    {
+      "scope": "src/params_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for ListWebhookDeliveryAttemptsParams"
+    },
+    {
+      "scope": "src/params_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for ListWebhookEventsParams"
+    },
+    {
+      "scope": "src/params_generated.rs",
+      "kind": "implementation",
       "declaration": "impl std :: fmt :: Debug for ListWebhooksParams"
     },
     {
@@ -4041,6 +4632,16 @@
       "scope": "src/params_generated.rs",
       "kind": "implementation",
       "declaration": "impl std :: fmt :: Debug for RemoveCustomersRequest"
+    },
+    {
+      "scope": "src/params_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for ResendWebhookDeliveriesParams"
+    },
+    {
+      "scope": "src/params_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for ResendWebhookDeliveriesRequest"
     },
     {
       "scope": "src/params_generated.rs",
@@ -4160,7 +4761,72 @@
     {
       "scope": "src/models_generated.rs",
       "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for WebhookAdvanceAccepted"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for WebhookAttempt"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for WebhookAttemptDetail"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for WebhookAttemptListResponse"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for WebhookBulkResendAccepted"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for WebhookBulkResendItem"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
       "declaration": "impl std :: fmt :: Debug for WebhookCreated"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for WebhookDelivery"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for WebhookDeliveryListResponse"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for WebhookDeliveryPage"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for WebhookDeliveryResendAccepted"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for WebhookEvent"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for WebhookEventDetail"
+    },
+    {
+      "scope": "src/models_generated.rs",
+      "kind": "implementation",
+      "declaration": "impl std :: fmt :: Debug for WebhookEventListResponse"
     },
     {
       "scope": "src/models_generated.rs",
@@ -4261,6 +4927,16 @@
       "scope": "src/models_generated.rs",
       "kind": "implementation",
       "declaration": "impl std :: fmt :: Debug for WithdrawalSummary"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookDeliveriesService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub async fn advance ( & self , delivery_id : & str , ) -> Result < ApiResponse < models :: WebhookAdvanceAccepted > , Error >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookDeliveriesService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub async fn advance_with_options ( & self , delivery_id : & str , options : & RequestOptions , ) -> Result < ApiResponse < models :: WebhookAdvanceAccepted > , Error >"
     },
     {
       "scope": "src/services_generated.rs :: impl SimulationChargesService < ' _ >",
@@ -4433,6 +5109,16 @@
       "declaration": "pub async fn delete_with_options ( & self , webhook_id : & str , options : & RequestOptions , ) -> Result < ApiResponse < ( ) > , Error >"
     },
     {
+      "scope": "src/services_generated.rs :: impl WebhookEventsService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub async fn deliver ( & self , event_id : & str , params : & params :: DeliverWebhookEventParams , ) -> Result < ApiResponse < models :: WebhookDeliveryResendAccepted > , Error >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookEventsService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub async fn deliver_with_options ( & self , event_id : & str , params : & params :: DeliverWebhookEventParams , options : & RequestOptions , ) -> Result < ApiResponse < models :: WebhookDeliveryResendAccepted > , Error >"
+    },
+    {
       "scope": "src/services_generated.rs :: impl SimulationRefundsService < ' _ >",
       "kind": "fn",
       "declaration": "pub async fn fail ( & self , id : & str ) -> Result < ApiResponse < models :: Refund > , Error >"
@@ -4508,6 +5194,16 @@
       "declaration": "pub async fn list ( & self , params : & params :: ListStatementsParams , ) -> Result < ApiResponse < models :: StatementListResponse > , Error >"
     },
     {
+      "scope": "src/services_generated.rs :: impl WebhookDeliveriesService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub async fn list ( & self , params : & params :: ListWebhookDeliveriesParams , ) -> Result < ApiResponse < models :: WebhookDeliveryListResponse > , Error >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookEventsService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub async fn list ( & self , params : & params :: ListWebhookEventsParams , ) -> Result < ApiResponse < models :: WebhookEventListResponse > , Error >"
+    },
+    {
       "scope": "src/services_generated.rs :: impl WebhooksService < ' _ >",
       "kind": "fn",
       "declaration": "pub async fn list ( & self , params : & params :: ListWebhooksParams , ) -> Result < ApiResponse < models :: WebhookListResponse > , Error >"
@@ -4521,6 +5217,16 @@
       "scope": "src/services_generated.rs :: impl WithdrawalsService < ' _ >",
       "kind": "fn",
       "declaration": "pub async fn list ( & self , params : & params :: ListWithdrawalsParams , ) -> Result < ApiResponse < models :: WithdrawalListResponse > , Error >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookDeliveriesService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub async fn list_attempts ( & self , delivery_id : & str , params : & params :: ListWebhookDeliveryAttemptsParams , ) -> Result < ApiResponse < models :: WebhookAttemptListResponse > , Error >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookDeliveriesService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub async fn list_attempts_with_options ( & self , delivery_id : & str , params : & params :: ListWebhookDeliveryAttemptsParams , options : & RequestOptions , ) -> Result < ApiResponse < models :: WebhookAttemptListResponse > , Error >"
     },
     {
       "scope": "src/services_generated.rs :: impl ChargesService < ' _ >",
@@ -4568,6 +5274,16 @@
       "declaration": "pub async fn list_with_options ( & self , params : & params :: ListStatementsParams , options : & RequestOptions , ) -> Result < ApiResponse < models :: StatementListResponse > , Error >"
     },
     {
+      "scope": "src/services_generated.rs :: impl WebhookDeliveriesService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub async fn list_with_options ( & self , params : & params :: ListWebhookDeliveriesParams , options : & RequestOptions , ) -> Result < ApiResponse < models :: WebhookDeliveryListResponse > , Error >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookEventsService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub async fn list_with_options ( & self , params : & params :: ListWebhookEventsParams , options : & RequestOptions , ) -> Result < ApiResponse < models :: WebhookEventListResponse > , Error >"
+    },
+    {
       "scope": "src/services_generated.rs :: impl WebhooksService < ' _ >",
       "kind": "fn",
       "declaration": "pub async fn list_with_options ( & self , params : & params :: ListWebhooksParams , options : & RequestOptions , ) -> Result < ApiResponse < models :: WebhookListResponse > , Error >"
@@ -4593,6 +5309,26 @@
       "declaration": "pub async fn previous_page ( & mut self ) -> Result < Option < ApiResponse < T > > , Error >"
     },
     {
+      "scope": "src/services_generated.rs :: impl WebhookDeliveriesService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub async fn resend ( & self , delivery_id : & str , ) -> Result < ApiResponse < models :: WebhookDeliveryResendAccepted > , Error >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookDeliveriesService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub async fn resend_many ( & self , params : & params :: ResendWebhookDeliveriesParams , ) -> Result < ApiResponse < models :: WebhookBulkResendAccepted > , Error >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookDeliveriesService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub async fn resend_many_with_options ( & self , params : & params :: ResendWebhookDeliveriesParams , options : & RequestOptions , ) -> Result < ApiResponse < models :: WebhookBulkResendAccepted > , Error >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookDeliveriesService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub async fn resend_with_options ( & self , delivery_id : & str , options : & RequestOptions , ) -> Result < ApiResponse < models :: WebhookDeliveryResendAccepted > , Error >"
+    },
+    {
       "scope": "src/services_generated.rs :: impl SimulationChargesService < ' _ >",
       "kind": "fn",
       "declaration": "pub async fn resolve_scenario ( & self , id : & str , params : & params :: ResolveSimulationScenarioParams , ) -> Result < ApiResponse < models :: ChargeScenario > , Error >"
@@ -4606,6 +5342,16 @@
       "scope": "src/services_generated.rs :: impl BalancesService < ' _ >",
       "kind": "fn",
       "declaration": "pub async fn retrieve ( & self ) -> Result < ApiResponse < models :: Balance > , Error >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookDeliveriesService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub async fn retrieve ( & self , delivery_id : & str , ) -> Result < ApiResponse < models :: WebhookDelivery > , Error >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookEventsService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub async fn retrieve ( & self , event_id : & str , ) -> Result < ApiResponse < models :: WebhookEventDetail > , Error >"
     },
     {
       "scope": "src/services_generated.rs :: impl ChargesService < ' _ >",
@@ -4651,6 +5397,16 @@
       "scope": "src/services_generated.rs :: impl WebhooksService < ' _ >",
       "kind": "fn",
       "declaration": "pub async fn retrieve ( & self , webhook_id : & str ) -> Result < ApiResponse < models :: Webhook > , Error >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookDeliveriesService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub async fn retrieve_attempt ( & self , delivery_id : & str , attempt_id : & str , ) -> Result < ApiResponse < models :: WebhookAttemptDetail > , Error >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookDeliveriesService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub async fn retrieve_attempt_with_options ( & self , delivery_id : & str , attempt_id : & str , options : & RequestOptions , ) -> Result < ApiResponse < models :: WebhookAttemptDetail > , Error >"
     },
     {
       "scope": "src/services_generated.rs :: impl WithdrawalsService < ' _ >",
@@ -4781,6 +5537,16 @@
       "scope": "src/services_generated.rs :: impl WithdrawalsService < ' _ >",
       "kind": "fn",
       "declaration": "pub async fn retrieve_summary_with_options ( & self , options : & RequestOptions , ) -> Result < ApiResponse < models :: WithdrawalSummary > , Error >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookDeliveriesService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub async fn retrieve_with_options ( & self , delivery_id : & str , options : & RequestOptions , ) -> Result < ApiResponse < models :: WebhookDelivery > , Error >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookEventsService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub async fn retrieve_with_options ( & self , event_id : & str , options : & RequestOptions , ) -> Result < ApiResponse < models :: WebhookEventDetail > , Error >"
     },
     {
       "scope": "src/services_generated.rs :: impl ChargesService < ' _ >",
@@ -5000,6 +5766,26 @@
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
+      "declaration": "pub const ACCOUNT_RESTORED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const ACCOUNT_RESTORED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const ACCOUNT_RESTORED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const ACCOUNT_RESTORED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
       "declaration": "pub const BALANCE_FORECAST_PERIOD_LAST_15_DAYS : & str = \"last_15_days\""
     },
     {
@@ -5020,12 +5806,332 @@
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
+      "declaration": "pub const BALANCE_HOLD_CREATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BALANCE_HOLD_CREATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BALANCE_HOLD_CREATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BALANCE_HOLD_CREATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BALANCE_HOLD_RELEASED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BALANCE_HOLD_RELEASED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BALANCE_HOLD_RELEASED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BALANCE_HOLD_RELEASED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_AVAILABLE_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_AVAILABLE_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_AVAILABLE_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_AVAILABLE_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_AVAILABLE_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_AVAILABLE_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_COMPENSATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_COMPENSATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_COMPENSATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_COMPENSATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_COMPENSATED_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_COMPENSATED_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_ISSUANCE_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_ISSUANCE_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_ISSUANCE_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_ISSUANCE_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_ISSUANCE_FAILED_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_ISSUANCE_FAILED_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_OVERPAYMENT_RECEIVED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_OVERPAYMENT_RECEIVED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_OVERPAYMENT_RECEIVED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_OVERPAYMENT_RECEIVED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_PARTIAL_SETTLEMENT_DETECTED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_PARTIAL_SETTLEMENT_DETECTED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_PARTIAL_SETTLEMENT_DETECTED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const BOLETO_PARTIAL_SETTLEMENT_DETECTED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_CANCELED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_CANCELED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_CANCELED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_CANCELED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_CANCELED_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_CANCELED_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
       "declaration": "pub const CHARGE_CREATED_PAYMENT_METHOD_TYPES_ITEM_BOLETO : i64 = 2"
     },
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
       "declaration": "pub const CHARGE_CREATED_PAYMENT_METHOD_TYPES_ITEM_PIX : i64 = 1"
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_CREATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_CREATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_CREATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_CREATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_CREATED_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_CREATED_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_EXPIRED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_EXPIRED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_EXPIRED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_EXPIRED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_EXPIRED_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_EXPIRED_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_FAILED_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_FAILED_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_FULLY_REFUNDED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_FULLY_REFUNDED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_FULLY_REFUNDED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_FULLY_REFUNDED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_FULLY_REFUNDED_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_FULLY_REFUNDED_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -5040,12 +6146,77 @@
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
+      "declaration": "pub const CHARGE_PAID_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PAID_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PAID_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PAID_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PAID_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PAID_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PARTIALLY_REFUNDED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PARTIALLY_REFUNDED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PARTIALLY_REFUNDED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PARTIALLY_REFUNDED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PARTIALLY_REFUNDED_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PARTIALLY_REFUNDED_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
       "declaration": "pub const CHARGE_PAYMENT_INFORMATION_BOLETO_PAYMENT_STATUS_AWAITING_PAYMENT : & str = \"awaiting_payment\""
     },
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
       "declaration": "pub const CHARGE_PAYMENT_INFORMATION_BOLETO_PAYMENT_STATUS_COMPENSATED : & str = \"compensated\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PAYMENT_INFORMATION_BOLETO_PAYMENT_STATUS_PARTIALLY_SETTLED : & str = \"partially_settled\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -5091,6 +6262,66 @@
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
       "declaration": "pub const CHARGE_PAYMENT_INFORMATION_PIX_STATUS_PENDING : & str = \"pending\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PAYMENT_INSTRUCTIONS_AVAILABLE_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PAYMENT_INSTRUCTIONS_AVAILABLE_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PAYMENT_INSTRUCTIONS_AVAILABLE_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PAYMENT_INSTRUCTIONS_AVAILABLE_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PAYMENT_INSTRUCTIONS_AVAILABLE_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PAYMENT_INSTRUCTIONS_AVAILABLE_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PAYMENT_INSTRUCTIONS_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PAYMENT_INSTRUCTIONS_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PAYMENT_INSTRUCTIONS_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PAYMENT_INSTRUCTIONS_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PAYMENT_INSTRUCTIONS_FAILED_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_PAYMENT_INSTRUCTIONS_FAILED_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -5196,6 +6427,36 @@
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
       "declaration": "pub const CHARGE_STATISTICS_PERIOD_TODAY : & str = \"today\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_UPDATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_UPDATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_UPDATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_UPDATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_UPDATED_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CHARGE_UPDATED_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -5315,17 +6576,17 @@
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
-      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_BOLETO_AVAILABLE : & str = \"boleto.available\""
-    },
-    {
-      "scope": "src/enum_values_generated.rs",
-      "kind": "const",
       "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_BOLETO_COMPENSATED : & str = \"boleto.compensated\""
     },
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
-      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_BOLETO_ISSUANCE_FAILED : & str = \"boleto.issuance_failed\""
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_BOLETO_OVERPAYMENT_RECEIVED : & str = \"boleto.overpayment_received\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_BOLETO_PARTIAL_SETTLEMENT_DETECTED : & str = \"boleto.partial_settlement_detected\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -5356,6 +6617,21 @@
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
       "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_CHARGE_PAID : & str = \"charge.paid\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_CHARGE_PARTIALLY_REFUNDED : & str = \"charge.partially_refunded\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_CHARGE_PAYMENT_INSTRUCTIONS_AVAILABLE : & str = \"charge.payment_instructions_available\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_CHARGE_PAYMENT_INSTRUCTIONS_FAILED : & str = \"charge.payment_instructions_failed\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -5410,16 +6686,6 @@
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
-      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_PIX_AVAILABLE : & str = \"pix.available\""
-    },
-    {
-      "scope": "src/enum_values_generated.rs",
-      "kind": "const",
-      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_PIX_ISSUANCE_FAILED : & str = \"pix.issuance_failed\""
-    },
-    {
-      "scope": "src/enum_values_generated.rs",
-      "kind": "const",
       "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_PIX_REFUND_RECEIVED : & str = \"pix_refund.received\""
     },
     {
@@ -5436,6 +6702,11 @@
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
       "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_REFUND_FAILED : & str = \"refund.failed\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_REFUND_RECONCILIATION_REQUIRED : & str = \"refund.reconciliation_required\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -5460,7 +6731,17 @@
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_WITHDRAWAL_AUTOMATIC_SETTINGS_CHANGED : & str = \"withdrawal.automatic_settings_changed\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
       "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_WITHDRAWAL_COMPLETED : & str = \"withdrawal.completed\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CREATE_WEBHOOK_REQUEST_EVENTS_ITEM_WITHDRAWAL_DESTINATION_CHANGED : & str = \"withdrawal.destination_changed\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -5485,12 +6766,102 @@
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
+      "declaration": "pub const CUSTOMER_CREATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CUSTOMER_CREATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CUSTOMER_CREATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CUSTOMER_CREATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CUSTOMER_CREATED_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CUSTOMER_CREATED_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CUSTOMER_DELETED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CUSTOMER_DELETED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CUSTOMER_DELETED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CUSTOMER_DELETED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CUSTOMER_DELETED_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CUSTOMER_DELETED_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
       "declaration": "pub const CUSTOMER_LIST_ITEM_TAX_ID_TYPE_CNPJ : & str = \"cnpj\""
     },
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
       "declaration": "pub const CUSTOMER_LIST_ITEM_TAX_ID_TYPE_CPF : & str = \"cpf\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CUSTOMER_UPDATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CUSTOMER_UPDATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CUSTOMER_UPDATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CUSTOMER_UPDATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CUSTOMER_UPDATED_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const CUSTOMER_UPDATED_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
     },
     {
       "scope": "src/client.rs",
@@ -5501,6 +6872,46 @@
       "scope": "src/webhook.rs",
       "kind": "const",
       "declaration": "pub const DEFAULT_WEBHOOK_TOLERANCE : Duration = Duration :: from_secs ( 300 )"
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const DISPUTE_CLOSED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const DISPUTE_CLOSED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const DISPUTE_CLOSED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const DISPUTE_CLOSED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const DISPUTE_FUNDS_DEBITED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const DISPUTE_FUNDS_DEBITED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const DISPUTE_FUNDS_DEBITED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const DISPUTE_FUNDS_DEBITED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -5570,6 +6981,26 @@
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
+      "declaration": "pub const DISPUTE_OPENED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const DISPUTE_OPENED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const DISPUTE_OPENED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const DISPUTE_OPENED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
       "declaration": "pub const DISPUTE_REFUND_RESULT_PARTIALLY_ACCEPTED : & str = \"partially_accepted\""
     },
     {
@@ -5616,6 +7047,56 @@
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
       "declaration": "pub const DISPUTE_STAGE_REJECTED : & str = \"rejected\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const DISPUTE_UPDATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const DISPUTE_UPDATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const DISPUTE_UPDATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const DISPUTE_UPDATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PAYMENT_LINK_CREATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PAYMENT_LINK_CREATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PAYMENT_LINK_CREATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PAYMENT_LINK_CREATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PAYMENT_LINK_CREATED_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PAYMENT_LINK_CREATED_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -5685,6 +7166,221 @@
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
+      "declaration": "pub const PAYMENT_LINK_UPDATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PAYMENT_LINK_UPDATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PAYMENT_LINK_UPDATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PAYMENT_LINK_UPDATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PAYMENT_LINK_UPDATED_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PAYMENT_LINK_UPDATED_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PIX_AVAILABLE_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PIX_AVAILABLE_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PIX_AVAILABLE_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PIX_AVAILABLE_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PIX_AVAILABLE_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PIX_AVAILABLE_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PIX_ISSUANCE_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PIX_ISSUANCE_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PIX_ISSUANCE_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PIX_ISSUANCE_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PIX_ISSUANCE_FAILED_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PIX_ISSUANCE_FAILED_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PIX_REFUND_RECEIVED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PIX_REFUND_RECEIVED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PIX_REFUND_RECEIVED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const PIX_REFUND_RECEIVED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_ACCEPTED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_ACCEPTED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_ACCEPTED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_ACCEPTED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_COMPLETED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_COMPLETED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_COMPLETED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_COMPLETED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_COMPLETED_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_COMPLETED_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_FAILED_WEBHOOK_EVENT_DATA_FAILURE_REASON_CODE_REFUND_FAILURE_REASON_UNAVAILABLE : & str = \"REFUND_FAILURE_REASON_UNAVAILABLE\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_FAILED_WEBHOOK_EVENT_DATA_FAILURE_REASON_CODE_REFUND_NOT_SUBMITTED : & str = \"REFUND_NOT_SUBMITTED\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_FAILED_WEBHOOK_EVENT_DATA_FAILURE_REASON_CODE_REFUND_PROCESSING_FAILED : & str = \"REFUND_PROCESSING_FAILED\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_FAILED_WEBHOOK_EVENT_DATA_FAILURE_REASON_CODE_REFUND_PROCESSING_UNAVAILABLE : & str = \"REFUND_PROCESSING_UNAVAILABLE\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_FAILED_WEBHOOK_EVENT_DATA_FAILURE_REASON_CODE_REFUND_REJECTED : & str = \"REFUND_REJECTED\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_FAILED_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_FAILED_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
       "declaration": "pub const REFUND_FAILURE_REASON_CODE_REFUND_FAILURE_REASON_UNAVAILABLE : & str = \"REFUND_FAILURE_REASON_UNAVAILABLE\""
     },
     {
@@ -5706,6 +7402,56 @@
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
       "declaration": "pub const REFUND_FAILURE_REASON_CODE_REFUND_REJECTED : & str = \"REFUND_REJECTED\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_RECONCILIATION_REQUIRED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_RECONCILIATION_REQUIRED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_RECONCILIATION_REQUIRED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_RECONCILIATION_REQUIRED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_REQUESTED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_REQUESTED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_REQUESTED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_REQUESTED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_REQUESTED_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const REFUND_REQUESTED_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -5795,6 +7541,36 @@
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
+      "declaration": "pub const STATEMENT_CREATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const STATEMENT_CREATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const STATEMENT_CREATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const STATEMENT_CREATED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const STATEMENT_CREATED_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const STATEMENT_CREATED_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
       "declaration": "pub const STATEMENT_REFERENCE_TYPE_AJUSTE : i64 = 4"
     },
     {
@@ -5875,6 +7651,26 @@
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
+      "declaration": "pub const TED_RECEIVED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const TED_RECEIVED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const TED_RECEIVED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const TED_RECEIVED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
       "declaration": "pub const UPDATE_PAYMENT_LINK_REQUEST_PAYMENT_METHOD_TYPES_ITEM_BOLETO : i64 = 2"
     },
     {
@@ -5896,6 +7692,31 @@
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
       "declaration": "pub const WEBHOOK_CREATED_DISABLED_REASON_MANUAL : & str = \"manual\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_DELIVERY_STATUS_CANCELED : & str = \"canceled\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_DELIVERY_STATUS_DELIVERED : & str = \"delivered\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_DELIVERY_STATUS_FAILED : & str = \"failed\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_DELIVERY_STATUS_PENDING : & str = \"pending\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_DELIVERY_STATUS_PROCESSING : & str = \"processing\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -5925,17 +7746,17 @@
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
-      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_BOLETO_AVAILABLE : & str = \"boleto.available\""
-    },
-    {
-      "scope": "src/enum_values_generated.rs",
-      "kind": "const",
       "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_BOLETO_COMPENSATED : & str = \"boleto.compensated\""
     },
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
-      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_BOLETO_ISSUANCE_FAILED : & str = \"boleto.issuance_failed\""
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_BOLETO_OVERPAYMENT_RECEIVED : & str = \"boleto.overpayment_received\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_BOLETO_PARTIAL_SETTLEMENT_DETECTED : & str = \"boleto.partial_settlement_detected\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -5966,6 +7787,21 @@
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
       "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_CHARGE_PAID : & str = \"charge.paid\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_CHARGE_PARTIALLY_REFUNDED : & str = \"charge.partially_refunded\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_CHARGE_PAYMENT_INSTRUCTIONS_AVAILABLE : & str = \"charge.payment_instructions_available\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_CHARGE_PAYMENT_INSTRUCTIONS_FAILED : & str = \"charge.payment_instructions_failed\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -6020,16 +7856,6 @@
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
-      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_PIX_AVAILABLE : & str = \"pix.available\""
-    },
-    {
-      "scope": "src/enum_values_generated.rs",
-      "kind": "const",
-      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_PIX_ISSUANCE_FAILED : & str = \"pix.issuance_failed\""
-    },
-    {
-      "scope": "src/enum_values_generated.rs",
-      "kind": "const",
       "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_PIX_REFUND_RECEIVED : & str = \"pix_refund.received\""
     },
     {
@@ -6046,6 +7872,11 @@
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
       "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_REFUND_FAILED : & str = \"refund.failed\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_REFUND_RECONCILIATION_REQUIRED : & str = \"refund.reconciliation_required\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -6070,7 +7901,17 @@
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_WITHDRAWAL_AUTOMATIC_SETTINGS_CHANGED : & str = \"withdrawal.automatic_settings_changed\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
       "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_WITHDRAWAL_COMPLETED : & str = \"withdrawal.completed\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_EVENT_TYPE_CODE_WITHDRAWAL_DESTINATION_CHANGED : & str = \"withdrawal.destination_changed\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -6105,6 +7946,96 @@
     {
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
+      "declaration": "pub const WEBHOOK_TEST_WEBHOOK_EVENT_ENVIRONMENT_PRODUCTION : & str = \"production\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WEBHOOK_TEST_WEBHOOK_EVENT_ENVIRONMENT_SANDBOX : & str = \"sandbox\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_ACCEPTED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_ACCEPTED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_ACCEPTED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_ACCEPTED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_AUTOMATIC_SETTINGS_CHANGED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_AUTOMATIC_SETTINGS_CHANGED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_AUTOMATIC_SETTINGS_CHANGED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_AUTOMATIC_SETTINGS_CHANGED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_COMPLETED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_COMPLETED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_COMPLETED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_COMPLETED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_DESTINATION_CHANGED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_DESTINATION_CHANGED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_DESTINATION_CHANGED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_DESTINATION_CHANGED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
       "declaration": "pub const WITHDRAWAL_DESTINATION_KEY_TYPE_CNPJ : & str = \"CNPJ\""
     },
     {
@@ -6121,6 +8052,26 @@
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
       "declaration": "pub const WITHDRAWAL_DESTINATION_KEY_TYPE_PHONE : & str = \"PHONE\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_FAILED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -6221,6 +8172,26 @@
       "scope": "src/enum_values_generated.rs",
       "kind": "const",
       "declaration": "pub const WITHDRAWAL_PIX_DESTINATION_KEY_TYPE_PHONE : & str = \"PHONE\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_REQUESTED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_BOLETO : & str = \"boleto\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_REQUESTED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_CREDIT_CARD : & str = \"credit_card\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_REQUESTED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_DEBIT : & str = \"debit\""
+    },
+    {
+      "scope": "src/enum_values_generated.rs",
+      "kind": "const",
+      "declaration": "pub const WITHDRAWAL_REQUESTED_WEBHOOK_EVENT_DATA_PAYMENT_METHOD_PIX : & str = \"pix\""
     },
     {
       "scope": "src/enum_values_generated.rs",
@@ -6333,6 +8304,16 @@
       "declaration": "pub fn last_response ( & self ) -> Option < & LastResponse >"
     },
     {
+      "scope": "src/services_generated.rs :: impl WebhookDeliveriesService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub fn list_attempts_pages ( & self , delivery_id : & str , params : & params :: ListWebhookDeliveryAttemptsParams , ) -> Result < Pager < models :: WebhookAttemptListResponse > , Error >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookDeliveriesService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub fn list_attempts_pages_with_options ( & self , delivery_id : & str , params : & params :: ListWebhookDeliveryAttemptsParams , options : & RequestOptions , ) -> Result < Pager < models :: WebhookAttemptListResponse > , Error >"
+    },
+    {
       "scope": "src/services_generated.rs :: impl ChargesService < ' _ >",
       "kind": "fn",
       "declaration": "pub fn list_pages ( & self , params : & params :: ListChargesParams , ) -> Result < Pager < models :: ChargeListResponse > , Error >"
@@ -6361,6 +8342,16 @@
       "scope": "src/services_generated.rs :: impl StatementsService < ' _ >",
       "kind": "fn",
       "declaration": "pub fn list_pages ( & self , params : & params :: ListStatementsParams , ) -> Result < Pager < models :: StatementListResponse > , Error >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookDeliveriesService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub fn list_pages ( & self , params : & params :: ListWebhookDeliveriesParams , ) -> Result < Pager < models :: WebhookDeliveryListResponse > , Error >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookEventsService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub fn list_pages ( & self , params : & params :: ListWebhookEventsParams , ) -> Result < Pager < models :: WebhookEventListResponse > , Error >"
     },
     {
       "scope": "src/services_generated.rs :: impl WebhooksService < ' _ >",
@@ -6406,6 +8397,16 @@
       "scope": "src/services_generated.rs :: impl StatementsService < ' _ >",
       "kind": "fn",
       "declaration": "pub fn list_pages_with_options ( & self , params : & params :: ListStatementsParams , options : & RequestOptions , ) -> Result < Pager < models :: StatementListResponse > , Error >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookDeliveriesService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub fn list_pages_with_options ( & self , params : & params :: ListWebhookDeliveriesParams , options : & RequestOptions , ) -> Result < Pager < models :: WebhookDeliveryListResponse > , Error >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl WebhookEventsService < ' _ >",
+      "kind": "fn",
+      "declaration": "pub fn list_pages_with_options ( & self , params : & params :: ListWebhookEventsParams , options : & RequestOptions , ) -> Result < Pager < models :: WebhookEventListResponse > , Error >"
     },
     {
       "scope": "src/services_generated.rs :: impl WebhooksService < ' _ >",
@@ -6500,7 +8501,17 @@
     {
       "scope": "src/services_generated.rs :: impl RaimsClient",
       "kind": "fn",
+      "declaration": "pub fn webhook_deliveries ( & self ) -> WebhookDeliveriesService < ' _ >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl RaimsClient",
+      "kind": "fn",
       "declaration": "pub fn webhook_event_types ( & self ) -> WebhookEventTypesService < ' _ >"
+    },
+    {
+      "scope": "src/services_generated.rs :: impl RaimsClient",
+      "kind": "fn",
+      "declaration": "pub fn webhook_events ( & self ) -> WebhookEventsService < ' _ >"
     },
     {
       "scope": "src/services_generated.rs :: impl RaimsClient",
@@ -6587,6 +8598,7 @@
       "raims::models::Charge",
       "raims::models::ChargeBoletoCompensation",
       "raims::models::ChargeBoletoPaymentInformation",
+      "raims::models::ChargeBoletoSettlement",
       "raims::models::ChargeCreated",
       "raims::models::ChargeListItem",
       "raims::models::ChargeListPage",
@@ -6636,7 +8648,20 @@
       "raims::models::StatementListPage",
       "raims::models::StatementListResponse",
       "raims::models::Webhook",
+      "raims::models::WebhookAdvanceAccepted",
+      "raims::models::WebhookAttempt",
+      "raims::models::WebhookAttemptDetail",
+      "raims::models::WebhookAttemptListResponse",
+      "raims::models::WebhookBulkResendAccepted",
+      "raims::models::WebhookBulkResendItem",
       "raims::models::WebhookCreated",
+      "raims::models::WebhookDelivery",
+      "raims::models::WebhookDeliveryListResponse",
+      "raims::models::WebhookDeliveryPage",
+      "raims::models::WebhookDeliveryResendAccepted",
+      "raims::models::WebhookEvent",
+      "raims::models::WebhookEventDetail",
+      "raims::models::WebhookEventListResponse",
       "raims::models::WebhookEventType",
       "raims::models::WebhookEventTypeListResponse",
       "raims::models::WebhookHealth",
@@ -6677,6 +8702,8 @@
       "raims::params::CreateWithdrawalParams",
       "raims::params::CreateWithdrawalRequest",
       "raims::params::DeleteCustomersBatchParams",
+      "raims::params::DeliverWebhookEventParams",
+      "raims::params::DeliverWebhookEventRequest",
       "raims::params::GetBalanceForecastParams",
       "raims::params::GetChargeStatisticsParams",
       "raims::params::IssueSimulationPaymentParams",
@@ -6688,10 +8715,15 @@
       "raims::params::ListPaymentLinksParams",
       "raims::params::ListRefundsParams",
       "raims::params::ListStatementsParams",
+      "raims::params::ListWebhookDeliveriesParams",
+      "raims::params::ListWebhookDeliveryAttemptsParams",
+      "raims::params::ListWebhookEventsParams",
       "raims::params::ListWebhooksParams",
       "raims::params::ListWithdrawalDestinationsParams",
       "raims::params::ListWithdrawalsParams",
       "raims::params::RemoveCustomersRequest",
+      "raims::params::ResendWebhookDeliveriesParams",
+      "raims::params::ResendWebhookDeliveriesRequest",
       "raims::params::ResolveChargeScenarioRequest",
       "raims::params::ResolveSimulationScenarioParams",
       "raims::params::RotateWebhookSecretParams",
@@ -6721,7 +8753,9 @@
       "raims::services::SimulationRefundsService<'static>",
       "raims::services::SimulationsService<'static>",
       "raims::services::StatementsService<'static>",
+      "raims::services::WebhookDeliveriesService<'static>",
       "raims::services::WebhookEventTypesService<'static>",
+      "raims::services::WebhookEventsService<'static>",
       "raims::services::WebhooksService<'static>",
       "raims::services::WithdrawalDestinationsService<'static>",
       "raims::services::WithdrawalsService<'static>"
@@ -6825,8 +8859,28 @@
       "client.statements().r#list_with_options(&raims::params::ListStatementsParams::default(), &raims::RequestOptions::default())",
       "client.statements().r#retrieve(\"compatibility\")",
       "client.statements().r#retrieve_with_options(\"compatibility\", &raims::RequestOptions::default())",
+      "client.webhook_deliveries().r#advance(\"compatibility\")",
+      "client.webhook_deliveries().r#advance_with_options(\"compatibility\", &raims::RequestOptions::default())",
+      "client.webhook_deliveries().r#list(&raims::params::ListWebhookDeliveriesParams::default())",
+      "client.webhook_deliveries().r#list_attempts(\"compatibility\", &raims::params::ListWebhookDeliveryAttemptsParams::default())",
+      "client.webhook_deliveries().r#list_attempts_with_options(\"compatibility\", &raims::params::ListWebhookDeliveryAttemptsParams::default(), &raims::RequestOptions::default())",
+      "client.webhook_deliveries().r#list_with_options(&raims::params::ListWebhookDeliveriesParams::default(), &raims::RequestOptions::default())",
+      "client.webhook_deliveries().r#resend(\"compatibility\")",
+      "client.webhook_deliveries().r#resend_many(&raims::params::ResendWebhookDeliveriesParams::default())",
+      "client.webhook_deliveries().r#resend_many_with_options(&raims::params::ResendWebhookDeliveriesParams::default(), &raims::RequestOptions::default())",
+      "client.webhook_deliveries().r#resend_with_options(\"compatibility\", &raims::RequestOptions::default())",
+      "client.webhook_deliveries().r#retrieve(\"compatibility\")",
+      "client.webhook_deliveries().r#retrieve_attempt(\"compatibility\", \"compatibility\")",
+      "client.webhook_deliveries().r#retrieve_attempt_with_options(\"compatibility\", \"compatibility\", &raims::RequestOptions::default())",
+      "client.webhook_deliveries().r#retrieve_with_options(\"compatibility\", &raims::RequestOptions::default())",
       "client.webhook_event_types().r#list()",
       "client.webhook_event_types().r#list_with_options(&raims::RequestOptions::default())",
+      "client.webhook_events().r#deliver(\"compatibility\", &raims::params::DeliverWebhookEventParams::default())",
+      "client.webhook_events().r#deliver_with_options(\"compatibility\", &raims::params::DeliverWebhookEventParams::default(), &raims::RequestOptions::default())",
+      "client.webhook_events().r#list(&raims::params::ListWebhookEventsParams::default())",
+      "client.webhook_events().r#list_with_options(&raims::params::ListWebhookEventsParams::default(), &raims::RequestOptions::default())",
+      "client.webhook_events().r#retrieve(\"compatibility\")",
+      "client.webhook_events().r#retrieve_with_options(\"compatibility\", &raims::RequestOptions::default())",
       "client.webhooks().r#create(&raims::params::CreateWebhookParams::default())",
       "client.webhooks().r#create_with_options(&raims::params::CreateWebhookParams::default(), &raims::RequestOptions::default())",
       "client.webhooks().r#delete(\"compatibility\")",
