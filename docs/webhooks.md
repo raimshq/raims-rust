@@ -40,3 +40,12 @@ integration, deduplicate its event ID durably, and persist the work before
 acknowledging the delivery. A verified delivery can still be retried and does
 not authorize a financial operation on its own. Keep signing secrets,
 signatures, and payloads out of routine logs.
+
+## Updating webhook subscriptions
+
+Use `charge.payment_instructions_available` in place of `pix.available` and
+`boleto.available`. Use `charge.payment_instructions_failed` in place of
+`pix.issuance_failed` and `boleto.issuance_failed`. Inspect `data.payment_method`
+to distinguish Pix from boleto. The previous SDK names are deprecated and
+remain available for reading historical records. Use the current codes when
+creating or updating a subscription.

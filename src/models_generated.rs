@@ -653,6 +653,8 @@ pub struct Charge {
     #[serde(default)]
     pub external_reference: Option<String>,
     pub metadata: BTreeMap<String, String>,
+    #[serde(default)]
+    pub boleto_settlement: Option<ChargeBoletoSettlement>,
     #[serde(default, flatten)]
     pub extra_fields: BTreeMap<String, serde_json::Value>,
 }
@@ -691,6 +693,7 @@ impl<'de> serde::Deserialize<'de> for Charge {
                 let mut field_13: Option<Option<Vec<i64>>> = None;
                 let mut field_14: Option<Option<String>> = None;
                 let mut field_15: Option<BTreeMap<String, String>> = None;
+                let mut field_16: Option<Option<ChargeBoletoSettlement>> = None;
                 let mut extra_fields = BTreeMap::new();
                 while let Some(key) = map.next_key::<String>()? {
                     match key.as_str() {
@@ -798,6 +801,12 @@ impl<'de> serde::Deserialize<'de> for Charge {
                             }
                             field_15 = Some(map.next_value()?);
                         }
+                        "boleto_settlement" => {
+                            if field_16.is_some() {
+                                return Err(serde::de::Error::duplicate_field("boleto_settlement"));
+                            }
+                            field_16 = Some(map.next_value()?);
+                        }
                         _ => {
                             extra_fields.insert(key, map.next_value::<serde_json::Value>()?);
                         }
@@ -836,6 +845,7 @@ impl<'de> serde::Deserialize<'de> for Charge {
                     external_reference: field_14.unwrap_or_default(),
                     metadata: field_15
                         .ok_or_else(|| <M::Error as serde::de::Error>::missing_field("metadata"))?,
+                    boleto_settlement: field_16.unwrap_or_default(),
                     extra_fields,
                 })
             }
@@ -990,6 +1000,80 @@ impl<'de> serde::Deserialize<'de> for ChargeBoletoPaymentInformation {
                         .ok_or_else(|| <M::Error as serde::de::Error>::missing_field("barcode"))?,
                     due_date: field_2
                         .ok_or_else(|| <M::Error as serde::de::Error>::missing_field("due_date"))?,
+                    extra_fields,
+                })
+            }
+        }
+        deserializer.deserialize_map(ResponseVisitor)
+    }
+}
+#[derive(Clone, serde::Serialize)]
+pub struct ChargeBoletoSettlement {
+    #[serde(default)]
+    pub observed_amount_cents: Option<i64>,
+    #[serde(default)]
+    pub confirmed_total_cents: Option<i64>,
+    #[serde(default)]
+    pub overpayment_cents: Option<i64>,
+    #[serde(default, flatten)]
+    pub extra_fields: BTreeMap<String, serde_json::Value>,
+}
+
+impl std::fmt::Debug for ChargeBoletoSettlement {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("ChargeBoletoSettlement { .. }")
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for ChargeBoletoSettlement {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        struct ResponseVisitor;
+        impl<'de> serde::de::Visitor<'de> for ResponseVisitor {
+            type Value = ChargeBoletoSettlement;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("a response object")
+            }
+            fn visit_map<M: serde::de::MapAccess<'de>>(
+                self,
+                mut map: M,
+            ) -> Result<Self::Value, M::Error> {
+                let mut field_0: Option<Option<i64>> = None;
+                let mut field_1: Option<Option<i64>> = None;
+                let mut field_2: Option<Option<i64>> = None;
+                let mut extra_fields = BTreeMap::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    match key.as_str() {
+                        "observed_amount_cents" => {
+                            if field_0.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "observed_amount_cents",
+                                ));
+                            }
+                            field_0 = Some(map.next_value()?);
+                        }
+                        "confirmed_total_cents" => {
+                            if field_1.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "confirmed_total_cents",
+                                ));
+                            }
+                            field_1 = Some(map.next_value()?);
+                        }
+                        "overpayment_cents" => {
+                            if field_2.is_some() {
+                                return Err(serde::de::Error::duplicate_field("overpayment_cents"));
+                            }
+                            field_2 = Some(map.next_value()?);
+                        }
+                        _ => {
+                            extra_fields.insert(key, map.next_value::<serde_json::Value>()?);
+                        }
+                    }
+                }
+                Ok(ChargeBoletoSettlement {
+                    observed_amount_cents: field_0.unwrap_or_default(),
+                    confirmed_total_cents: field_1.unwrap_or_default(),
+                    overpayment_cents: field_2.unwrap_or_default(),
                     extra_fields,
                 })
             }
@@ -5825,6 +5909,612 @@ impl<'de> serde::Deserialize<'de> for Webhook {
     }
 }
 #[derive(Clone, serde::Serialize)]
+pub struct WebhookAdvanceAccepted {
+    pub delivery_id: String,
+    #[serde(default, flatten)]
+    pub extra_fields: BTreeMap<String, serde_json::Value>,
+}
+
+impl std::fmt::Debug for WebhookAdvanceAccepted {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("WebhookAdvanceAccepted { .. }")
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for WebhookAdvanceAccepted {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        struct ResponseVisitor;
+        impl<'de> serde::de::Visitor<'de> for ResponseVisitor {
+            type Value = WebhookAdvanceAccepted;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("a response object")
+            }
+            fn visit_map<M: serde::de::MapAccess<'de>>(
+                self,
+                mut map: M,
+            ) -> Result<Self::Value, M::Error> {
+                let mut field_0: Option<String> = None;
+                let mut extra_fields = BTreeMap::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    match key.as_str() {
+                        "delivery_id" => {
+                            if field_0.is_some() {
+                                return Err(serde::de::Error::duplicate_field("delivery_id"));
+                            }
+                            field_0 = Some(map.next_value()?);
+                        }
+                        _ => {
+                            extra_fields.insert(key, map.next_value::<serde_json::Value>()?);
+                        }
+                    }
+                }
+                Ok(WebhookAdvanceAccepted {
+                    delivery_id: field_0.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("delivery_id")
+                    })?,
+                    extra_fields,
+                })
+            }
+        }
+        deserializer.deserialize_map(ResponseVisitor)
+    }
+}
+#[derive(Clone, serde::Serialize)]
+pub struct WebhookAttempt {
+    pub id: String,
+    pub delivery_id: String,
+    pub attempt_number: i64,
+    pub created_at: i64,
+    #[serde(default)]
+    pub status_code: Option<i64>,
+    pub duration_ms: serde_json::Number,
+    #[serde(default)]
+    pub destination_ip: Option<String>,
+    #[serde(default)]
+    pub error_code: Option<String>,
+    #[serde(default)]
+    pub endpoint_url: Option<String>,
+    pub request_available: bool,
+    pub response_body_available: bool,
+    pub response_body_truncated: bool,
+    #[serde(default, flatten)]
+    pub extra_fields: BTreeMap<String, serde_json::Value>,
+}
+
+impl std::fmt::Debug for WebhookAttempt {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("WebhookAttempt { .. }")
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for WebhookAttempt {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        struct ResponseVisitor;
+        impl<'de> serde::de::Visitor<'de> for ResponseVisitor {
+            type Value = WebhookAttempt;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("a response object")
+            }
+            fn visit_map<M: serde::de::MapAccess<'de>>(
+                self,
+                mut map: M,
+            ) -> Result<Self::Value, M::Error> {
+                let mut field_0: Option<String> = None;
+                let mut field_1: Option<String> = None;
+                let mut field_2: Option<i64> = None;
+                let mut field_3: Option<i64> = None;
+                let mut field_4: Option<Option<i64>> = None;
+                let mut field_5: Option<serde_json::Number> = None;
+                let mut field_6: Option<Option<String>> = None;
+                let mut field_7: Option<Option<String>> = None;
+                let mut field_8: Option<Option<String>> = None;
+                let mut field_9: Option<bool> = None;
+                let mut field_10: Option<bool> = None;
+                let mut field_11: Option<bool> = None;
+                let mut extra_fields = BTreeMap::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    match key.as_str() {
+                        "id" => {
+                            if field_0.is_some() {
+                                return Err(serde::de::Error::duplicate_field("id"));
+                            }
+                            field_0 = Some(map.next_value()?);
+                        }
+                        "delivery_id" => {
+                            if field_1.is_some() {
+                                return Err(serde::de::Error::duplicate_field("delivery_id"));
+                            }
+                            field_1 = Some(map.next_value()?);
+                        }
+                        "attempt_number" => {
+                            if field_2.is_some() {
+                                return Err(serde::de::Error::duplicate_field("attempt_number"));
+                            }
+                            field_2 = Some(map.next_value()?);
+                        }
+                        "created_at" => {
+                            if field_3.is_some() {
+                                return Err(serde::de::Error::duplicate_field("created_at"));
+                            }
+                            field_3 = Some(map.next_value()?);
+                        }
+                        "status_code" => {
+                            if field_4.is_some() {
+                                return Err(serde::de::Error::duplicate_field("status_code"));
+                            }
+                            field_4 = Some(map.next_value()?);
+                        }
+                        "duration_ms" => {
+                            if field_5.is_some() {
+                                return Err(serde::de::Error::duplicate_field("duration_ms"));
+                            }
+                            field_5 = Some(map.next_value()?);
+                        }
+                        "destination_ip" => {
+                            if field_6.is_some() {
+                                return Err(serde::de::Error::duplicate_field("destination_ip"));
+                            }
+                            field_6 = Some(map.next_value()?);
+                        }
+                        "error_code" => {
+                            if field_7.is_some() {
+                                return Err(serde::de::Error::duplicate_field("error_code"));
+                            }
+                            field_7 = Some(map.next_value()?);
+                        }
+                        "endpoint_url" => {
+                            if field_8.is_some() {
+                                return Err(serde::de::Error::duplicate_field("endpoint_url"));
+                            }
+                            field_8 = Some(map.next_value()?);
+                        }
+                        "request_available" => {
+                            if field_9.is_some() {
+                                return Err(serde::de::Error::duplicate_field("request_available"));
+                            }
+                            field_9 = Some(map.next_value()?);
+                        }
+                        "response_body_available" => {
+                            if field_10.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "response_body_available",
+                                ));
+                            }
+                            field_10 = Some(map.next_value()?);
+                        }
+                        "response_body_truncated" => {
+                            if field_11.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "response_body_truncated",
+                                ));
+                            }
+                            field_11 = Some(map.next_value()?);
+                        }
+                        _ => {
+                            extra_fields.insert(key, map.next_value::<serde_json::Value>()?);
+                        }
+                    }
+                }
+                Ok(WebhookAttempt {
+                    id: field_0
+                        .ok_or_else(|| <M::Error as serde::de::Error>::missing_field("id"))?,
+                    delivery_id: field_1.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("delivery_id")
+                    })?,
+                    attempt_number: field_2.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("attempt_number")
+                    })?,
+                    created_at: field_3.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("created_at")
+                    })?,
+                    status_code: field_4.unwrap_or_default(),
+                    duration_ms: field_5.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("duration_ms")
+                    })?,
+                    destination_ip: field_6.unwrap_or_default(),
+                    error_code: field_7.unwrap_or_default(),
+                    endpoint_url: field_8.unwrap_or_default(),
+                    request_available: field_9.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("request_available")
+                    })?,
+                    response_body_available: field_10.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("response_body_available")
+                    })?,
+                    response_body_truncated: field_11.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("response_body_truncated")
+                    })?,
+                    extra_fields,
+                })
+            }
+        }
+        deserializer.deserialize_map(ResponseVisitor)
+    }
+}
+#[derive(Clone, serde::Serialize)]
+pub struct WebhookAttemptDetail {
+    #[serde(default)]
+    pub request_body: Option<String>,
+    #[serde(default)]
+    pub response_body: Option<String>,
+    pub id: String,
+    pub delivery_id: String,
+    pub attempt_number: i64,
+    pub created_at: i64,
+    #[serde(default)]
+    pub status_code: Option<i64>,
+    pub duration_ms: serde_json::Number,
+    #[serde(default)]
+    pub destination_ip: Option<String>,
+    #[serde(default)]
+    pub error_code: Option<String>,
+    #[serde(default)]
+    pub endpoint_url: Option<String>,
+    pub request_available: bool,
+    pub response_body_available: bool,
+    pub response_body_truncated: bool,
+    #[serde(default, flatten)]
+    pub extra_fields: BTreeMap<String, serde_json::Value>,
+}
+
+impl std::fmt::Debug for WebhookAttemptDetail {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("WebhookAttemptDetail { .. }")
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for WebhookAttemptDetail {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        struct ResponseVisitor;
+        impl<'de> serde::de::Visitor<'de> for ResponseVisitor {
+            type Value = WebhookAttemptDetail;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("a response object")
+            }
+            fn visit_map<M: serde::de::MapAccess<'de>>(
+                self,
+                mut map: M,
+            ) -> Result<Self::Value, M::Error> {
+                let mut field_0: Option<Option<String>> = None;
+                let mut field_1: Option<Option<String>> = None;
+                let mut field_2: Option<String> = None;
+                let mut field_3: Option<String> = None;
+                let mut field_4: Option<i64> = None;
+                let mut field_5: Option<i64> = None;
+                let mut field_6: Option<Option<i64>> = None;
+                let mut field_7: Option<serde_json::Number> = None;
+                let mut field_8: Option<Option<String>> = None;
+                let mut field_9: Option<Option<String>> = None;
+                let mut field_10: Option<Option<String>> = None;
+                let mut field_11: Option<bool> = None;
+                let mut field_12: Option<bool> = None;
+                let mut field_13: Option<bool> = None;
+                let mut extra_fields = BTreeMap::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    match key.as_str() {
+                        "request_body" => {
+                            if field_0.is_some() {
+                                return Err(serde::de::Error::duplicate_field("request_body"));
+                            }
+                            field_0 = Some(map.next_value()?);
+                        }
+                        "response_body" => {
+                            if field_1.is_some() {
+                                return Err(serde::de::Error::duplicate_field("response_body"));
+                            }
+                            field_1 = Some(map.next_value()?);
+                        }
+                        "id" => {
+                            if field_2.is_some() {
+                                return Err(serde::de::Error::duplicate_field("id"));
+                            }
+                            field_2 = Some(map.next_value()?);
+                        }
+                        "delivery_id" => {
+                            if field_3.is_some() {
+                                return Err(serde::de::Error::duplicate_field("delivery_id"));
+                            }
+                            field_3 = Some(map.next_value()?);
+                        }
+                        "attempt_number" => {
+                            if field_4.is_some() {
+                                return Err(serde::de::Error::duplicate_field("attempt_number"));
+                            }
+                            field_4 = Some(map.next_value()?);
+                        }
+                        "created_at" => {
+                            if field_5.is_some() {
+                                return Err(serde::de::Error::duplicate_field("created_at"));
+                            }
+                            field_5 = Some(map.next_value()?);
+                        }
+                        "status_code" => {
+                            if field_6.is_some() {
+                                return Err(serde::de::Error::duplicate_field("status_code"));
+                            }
+                            field_6 = Some(map.next_value()?);
+                        }
+                        "duration_ms" => {
+                            if field_7.is_some() {
+                                return Err(serde::de::Error::duplicate_field("duration_ms"));
+                            }
+                            field_7 = Some(map.next_value()?);
+                        }
+                        "destination_ip" => {
+                            if field_8.is_some() {
+                                return Err(serde::de::Error::duplicate_field("destination_ip"));
+                            }
+                            field_8 = Some(map.next_value()?);
+                        }
+                        "error_code" => {
+                            if field_9.is_some() {
+                                return Err(serde::de::Error::duplicate_field("error_code"));
+                            }
+                            field_9 = Some(map.next_value()?);
+                        }
+                        "endpoint_url" => {
+                            if field_10.is_some() {
+                                return Err(serde::de::Error::duplicate_field("endpoint_url"));
+                            }
+                            field_10 = Some(map.next_value()?);
+                        }
+                        "request_available" => {
+                            if field_11.is_some() {
+                                return Err(serde::de::Error::duplicate_field("request_available"));
+                            }
+                            field_11 = Some(map.next_value()?);
+                        }
+                        "response_body_available" => {
+                            if field_12.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "response_body_available",
+                                ));
+                            }
+                            field_12 = Some(map.next_value()?);
+                        }
+                        "response_body_truncated" => {
+                            if field_13.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "response_body_truncated",
+                                ));
+                            }
+                            field_13 = Some(map.next_value()?);
+                        }
+                        _ => {
+                            extra_fields.insert(key, map.next_value::<serde_json::Value>()?);
+                        }
+                    }
+                }
+                Ok(WebhookAttemptDetail {
+                    request_body: field_0.unwrap_or_default(),
+                    response_body: field_1.unwrap_or_default(),
+                    id: field_2
+                        .ok_or_else(|| <M::Error as serde::de::Error>::missing_field("id"))?,
+                    delivery_id: field_3.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("delivery_id")
+                    })?,
+                    attempt_number: field_4.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("attempt_number")
+                    })?,
+                    created_at: field_5.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("created_at")
+                    })?,
+                    status_code: field_6.unwrap_or_default(),
+                    duration_ms: field_7.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("duration_ms")
+                    })?,
+                    destination_ip: field_8.unwrap_or_default(),
+                    error_code: field_9.unwrap_or_default(),
+                    endpoint_url: field_10.unwrap_or_default(),
+                    request_available: field_11.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("request_available")
+                    })?,
+                    response_body_available: field_12.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("response_body_available")
+                    })?,
+                    response_body_truncated: field_13.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("response_body_truncated")
+                    })?,
+                    extra_fields,
+                })
+            }
+        }
+        deserializer.deserialize_map(ResponseVisitor)
+    }
+}
+#[derive(Clone, serde::Serialize)]
+pub struct WebhookAttemptListResponse {
+    pub list: Vec<WebhookAttempt>,
+    pub page: WebhookDeliveryPage,
+    #[serde(default, flatten)]
+    pub extra_fields: BTreeMap<String, serde_json::Value>,
+}
+
+impl std::fmt::Debug for WebhookAttemptListResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("WebhookAttemptListResponse { .. }")
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for WebhookAttemptListResponse {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        struct ResponseVisitor;
+        impl<'de> serde::de::Visitor<'de> for ResponseVisitor {
+            type Value = WebhookAttemptListResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("a response object")
+            }
+            fn visit_map<M: serde::de::MapAccess<'de>>(
+                self,
+                mut map: M,
+            ) -> Result<Self::Value, M::Error> {
+                let mut field_0: Option<Vec<WebhookAttempt>> = None;
+                let mut field_1: Option<WebhookDeliveryPage> = None;
+                let mut extra_fields = BTreeMap::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    match key.as_str() {
+                        "list" => {
+                            if field_0.is_some() {
+                                return Err(serde::de::Error::duplicate_field("list"));
+                            }
+                            field_0 = Some(map.next_value()?);
+                        }
+                        "page" => {
+                            if field_1.is_some() {
+                                return Err(serde::de::Error::duplicate_field("page"));
+                            }
+                            field_1 = Some(map.next_value()?);
+                        }
+                        _ => {
+                            extra_fields.insert(key, map.next_value::<serde_json::Value>()?);
+                        }
+                    }
+                }
+                Ok(WebhookAttemptListResponse {
+                    list: field_0
+                        .ok_or_else(|| <M::Error as serde::de::Error>::missing_field("list"))?,
+                    page: field_1
+                        .ok_or_else(|| <M::Error as serde::de::Error>::missing_field("page"))?,
+                    extra_fields,
+                })
+            }
+        }
+        deserializer.deserialize_map(ResponseVisitor)
+    }
+}
+#[derive(Clone, serde::Serialize)]
+pub struct WebhookBulkResendAccepted {
+    pub results: Vec<WebhookBulkResendItem>,
+    #[serde(default, flatten)]
+    pub extra_fields: BTreeMap<String, serde_json::Value>,
+}
+
+impl std::fmt::Debug for WebhookBulkResendAccepted {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("WebhookBulkResendAccepted { .. }")
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for WebhookBulkResendAccepted {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        struct ResponseVisitor;
+        impl<'de> serde::de::Visitor<'de> for ResponseVisitor {
+            type Value = WebhookBulkResendAccepted;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("a response object")
+            }
+            fn visit_map<M: serde::de::MapAccess<'de>>(
+                self,
+                mut map: M,
+            ) -> Result<Self::Value, M::Error> {
+                let mut field_0: Option<Vec<WebhookBulkResendItem>> = None;
+                let mut extra_fields = BTreeMap::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    match key.as_str() {
+                        "results" => {
+                            if field_0.is_some() {
+                                return Err(serde::de::Error::duplicate_field("results"));
+                            }
+                            field_0 = Some(map.next_value()?);
+                        }
+                        _ => {
+                            extra_fields.insert(key, map.next_value::<serde_json::Value>()?);
+                        }
+                    }
+                }
+                Ok(WebhookBulkResendAccepted {
+                    results: field_0
+                        .ok_or_else(|| <M::Error as serde::de::Error>::missing_field("results"))?,
+                    extra_fields,
+                })
+            }
+        }
+        deserializer.deserialize_map(ResponseVisitor)
+    }
+}
+#[derive(Clone, serde::Serialize)]
+pub struct WebhookBulkResendItem {
+    pub source_delivery_id: String,
+    #[serde(default)]
+    pub delivery_id: Option<String>,
+    #[serde(default)]
+    pub event_id: Option<String>,
+    #[serde(default)]
+    pub error: Option<Error>,
+    #[serde(default, flatten)]
+    pub extra_fields: BTreeMap<String, serde_json::Value>,
+}
+
+impl std::fmt::Debug for WebhookBulkResendItem {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("WebhookBulkResendItem { .. }")
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for WebhookBulkResendItem {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        struct ResponseVisitor;
+        impl<'de> serde::de::Visitor<'de> for ResponseVisitor {
+            type Value = WebhookBulkResendItem;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("a response object")
+            }
+            fn visit_map<M: serde::de::MapAccess<'de>>(
+                self,
+                mut map: M,
+            ) -> Result<Self::Value, M::Error> {
+                let mut field_0: Option<String> = None;
+                let mut field_1: Option<Option<String>> = None;
+                let mut field_2: Option<Option<String>> = None;
+                let mut field_3: Option<Option<Error>> = None;
+                let mut extra_fields = BTreeMap::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    match key.as_str() {
+                        "source_delivery_id" => {
+                            if field_0.is_some() {
+                                return Err(serde::de::Error::duplicate_field(
+                                    "source_delivery_id",
+                                ));
+                            }
+                            field_0 = Some(map.next_value()?);
+                        }
+                        "delivery_id" => {
+                            if field_1.is_some() {
+                                return Err(serde::de::Error::duplicate_field("delivery_id"));
+                            }
+                            field_1 = Some(map.next_value()?);
+                        }
+                        "event_id" => {
+                            if field_2.is_some() {
+                                return Err(serde::de::Error::duplicate_field("event_id"));
+                            }
+                            field_2 = Some(map.next_value()?);
+                        }
+                        "error" => {
+                            if field_3.is_some() {
+                                return Err(serde::de::Error::duplicate_field("error"));
+                            }
+                            field_3 = Some(map.next_value()?);
+                        }
+                        _ => {
+                            extra_fields.insert(key, map.next_value::<serde_json::Value>()?);
+                        }
+                    }
+                }
+                Ok(WebhookBulkResendItem {
+                    source_delivery_id: field_0.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("source_delivery_id")
+                    })?,
+                    delivery_id: field_1.unwrap_or_default(),
+                    event_id: field_2.unwrap_or_default(),
+                    error: field_3.unwrap_or_default(),
+                    extra_fields,
+                })
+            }
+        }
+        deserializer.deserialize_map(ResponseVisitor)
+    }
+}
+#[derive(Clone, serde::Serialize)]
 pub struct WebhookCreated {
     pub id: String,
     pub name: String,
@@ -5994,6 +6684,622 @@ impl<'de> serde::Deserialize<'de> for WebhookCreated {
                         <M::Error as serde::de::Error>::missing_field("is_paused")
                     })?,
                     paused_at: field_12.unwrap_or_default(),
+                    extra_fields,
+                })
+            }
+        }
+        deserializer.deserialize_map(ResponseVisitor)
+    }
+}
+#[derive(Clone, serde::Serialize)]
+pub struct WebhookDelivery {
+    pub id: String,
+    #[serde(default)]
+    pub webhook_id: Option<String>,
+    pub event_id: String,
+    pub event_type: String,
+    pub status: String,
+    pub created_at: i64,
+    pub event_created_at: i64,
+    pub deadline_at: i64,
+    #[serde(default)]
+    pub next_attempt_at: Option<i64>,
+    pub updated_at: i64,
+    #[serde(default, flatten)]
+    pub extra_fields: BTreeMap<String, serde_json::Value>,
+}
+
+impl std::fmt::Debug for WebhookDelivery {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("WebhookDelivery { .. }")
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for WebhookDelivery {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        struct ResponseVisitor;
+        impl<'de> serde::de::Visitor<'de> for ResponseVisitor {
+            type Value = WebhookDelivery;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("a response object")
+            }
+            fn visit_map<M: serde::de::MapAccess<'de>>(
+                self,
+                mut map: M,
+            ) -> Result<Self::Value, M::Error> {
+                let mut field_0: Option<String> = None;
+                let mut field_1: Option<Option<String>> = None;
+                let mut field_2: Option<String> = None;
+                let mut field_3: Option<String> = None;
+                let mut field_4: Option<String> = None;
+                let mut field_5: Option<i64> = None;
+                let mut field_6: Option<i64> = None;
+                let mut field_7: Option<i64> = None;
+                let mut field_8: Option<Option<i64>> = None;
+                let mut field_9: Option<i64> = None;
+                let mut extra_fields = BTreeMap::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    match key.as_str() {
+                        "id" => {
+                            if field_0.is_some() {
+                                return Err(serde::de::Error::duplicate_field("id"));
+                            }
+                            field_0 = Some(map.next_value()?);
+                        }
+                        "webhook_id" => {
+                            if field_1.is_some() {
+                                return Err(serde::de::Error::duplicate_field("webhook_id"));
+                            }
+                            field_1 = Some(map.next_value()?);
+                        }
+                        "event_id" => {
+                            if field_2.is_some() {
+                                return Err(serde::de::Error::duplicate_field("event_id"));
+                            }
+                            field_2 = Some(map.next_value()?);
+                        }
+                        "event_type" => {
+                            if field_3.is_some() {
+                                return Err(serde::de::Error::duplicate_field("event_type"));
+                            }
+                            field_3 = Some(map.next_value()?);
+                        }
+                        "status" => {
+                            if field_4.is_some() {
+                                return Err(serde::de::Error::duplicate_field("status"));
+                            }
+                            field_4 = Some(map.next_value()?);
+                        }
+                        "created_at" => {
+                            if field_5.is_some() {
+                                return Err(serde::de::Error::duplicate_field("created_at"));
+                            }
+                            field_5 = Some(map.next_value()?);
+                        }
+                        "event_created_at" => {
+                            if field_6.is_some() {
+                                return Err(serde::de::Error::duplicate_field("event_created_at"));
+                            }
+                            field_6 = Some(map.next_value()?);
+                        }
+                        "deadline_at" => {
+                            if field_7.is_some() {
+                                return Err(serde::de::Error::duplicate_field("deadline_at"));
+                            }
+                            field_7 = Some(map.next_value()?);
+                        }
+                        "next_attempt_at" => {
+                            if field_8.is_some() {
+                                return Err(serde::de::Error::duplicate_field("next_attempt_at"));
+                            }
+                            field_8 = Some(map.next_value()?);
+                        }
+                        "updated_at" => {
+                            if field_9.is_some() {
+                                return Err(serde::de::Error::duplicate_field("updated_at"));
+                            }
+                            field_9 = Some(map.next_value()?);
+                        }
+                        _ => {
+                            extra_fields.insert(key, map.next_value::<serde_json::Value>()?);
+                        }
+                    }
+                }
+                Ok(WebhookDelivery {
+                    id: field_0
+                        .ok_or_else(|| <M::Error as serde::de::Error>::missing_field("id"))?,
+                    webhook_id: field_1.unwrap_or_default(),
+                    event_id: field_2
+                        .ok_or_else(|| <M::Error as serde::de::Error>::missing_field("event_id"))?,
+                    event_type: field_3.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("event_type")
+                    })?,
+                    status: field_4
+                        .ok_or_else(|| <M::Error as serde::de::Error>::missing_field("status"))?,
+                    created_at: field_5.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("created_at")
+                    })?,
+                    event_created_at: field_6.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("event_created_at")
+                    })?,
+                    deadline_at: field_7.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("deadline_at")
+                    })?,
+                    next_attempt_at: field_8.unwrap_or_default(),
+                    updated_at: field_9.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("updated_at")
+                    })?,
+                    extra_fields,
+                })
+            }
+        }
+        deserializer.deserialize_map(ResponseVisitor)
+    }
+}
+#[derive(Clone, serde::Serialize)]
+pub struct WebhookDeliveryListResponse {
+    pub list: Vec<WebhookDelivery>,
+    pub page: WebhookDeliveryPage,
+    #[serde(default, flatten)]
+    pub extra_fields: BTreeMap<String, serde_json::Value>,
+}
+
+impl std::fmt::Debug for WebhookDeliveryListResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("WebhookDeliveryListResponse { .. }")
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for WebhookDeliveryListResponse {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        struct ResponseVisitor;
+        impl<'de> serde::de::Visitor<'de> for ResponseVisitor {
+            type Value = WebhookDeliveryListResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("a response object")
+            }
+            fn visit_map<M: serde::de::MapAccess<'de>>(
+                self,
+                mut map: M,
+            ) -> Result<Self::Value, M::Error> {
+                let mut field_0: Option<Vec<WebhookDelivery>> = None;
+                let mut field_1: Option<WebhookDeliveryPage> = None;
+                let mut extra_fields = BTreeMap::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    match key.as_str() {
+                        "list" => {
+                            if field_0.is_some() {
+                                return Err(serde::de::Error::duplicate_field("list"));
+                            }
+                            field_0 = Some(map.next_value()?);
+                        }
+                        "page" => {
+                            if field_1.is_some() {
+                                return Err(serde::de::Error::duplicate_field("page"));
+                            }
+                            field_1 = Some(map.next_value()?);
+                        }
+                        _ => {
+                            extra_fields.insert(key, map.next_value::<serde_json::Value>()?);
+                        }
+                    }
+                }
+                Ok(WebhookDeliveryListResponse {
+                    list: field_0
+                        .ok_or_else(|| <M::Error as serde::de::Error>::missing_field("list"))?,
+                    page: field_1
+                        .ok_or_else(|| <M::Error as serde::de::Error>::missing_field("page"))?,
+                    extra_fields,
+                })
+            }
+        }
+        deserializer.deserialize_map(ResponseVisitor)
+    }
+}
+#[derive(Clone, serde::Serialize)]
+pub struct WebhookDeliveryPage {
+    pub page_size: i64,
+    pub has_next: bool,
+    pub has_previous: bool,
+    #[serde(default)]
+    pub next_after: Option<String>,
+    #[serde(default)]
+    pub previous_before: Option<String>,
+    #[serde(default, flatten)]
+    pub extra_fields: BTreeMap<String, serde_json::Value>,
+}
+
+impl std::fmt::Debug for WebhookDeliveryPage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("WebhookDeliveryPage { .. }")
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for WebhookDeliveryPage {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        struct ResponseVisitor;
+        impl<'de> serde::de::Visitor<'de> for ResponseVisitor {
+            type Value = WebhookDeliveryPage;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("a response object")
+            }
+            fn visit_map<M: serde::de::MapAccess<'de>>(
+                self,
+                mut map: M,
+            ) -> Result<Self::Value, M::Error> {
+                let mut field_0: Option<i64> = None;
+                let mut field_1: Option<bool> = None;
+                let mut field_2: Option<bool> = None;
+                let mut field_3: Option<Option<String>> = None;
+                let mut field_4: Option<Option<String>> = None;
+                let mut extra_fields = BTreeMap::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    match key.as_str() {
+                        "page_size" => {
+                            if field_0.is_some() {
+                                return Err(serde::de::Error::duplicate_field("page_size"));
+                            }
+                            field_0 = Some(map.next_value()?);
+                        }
+                        "has_next" => {
+                            if field_1.is_some() {
+                                return Err(serde::de::Error::duplicate_field("has_next"));
+                            }
+                            field_1 = Some(map.next_value()?);
+                        }
+                        "has_previous" => {
+                            if field_2.is_some() {
+                                return Err(serde::de::Error::duplicate_field("has_previous"));
+                            }
+                            field_2 = Some(map.next_value()?);
+                        }
+                        "next_after" => {
+                            if field_3.is_some() {
+                                return Err(serde::de::Error::duplicate_field("next_after"));
+                            }
+                            field_3 = Some(map.next_value()?);
+                        }
+                        "previous_before" => {
+                            if field_4.is_some() {
+                                return Err(serde::de::Error::duplicate_field("previous_before"));
+                            }
+                            field_4 = Some(map.next_value()?);
+                        }
+                        _ => {
+                            extra_fields.insert(key, map.next_value::<serde_json::Value>()?);
+                        }
+                    }
+                }
+                Ok(WebhookDeliveryPage {
+                    page_size: field_0.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("page_size")
+                    })?,
+                    has_next: field_1
+                        .ok_or_else(|| <M::Error as serde::de::Error>::missing_field("has_next"))?,
+                    has_previous: field_2.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("has_previous")
+                    })?,
+                    next_after: field_3.unwrap_or_default(),
+                    previous_before: field_4.unwrap_or_default(),
+                    extra_fields,
+                })
+            }
+        }
+        deserializer.deserialize_map(ResponseVisitor)
+    }
+}
+#[derive(Clone, serde::Serialize)]
+pub struct WebhookDeliveryResendAccepted {
+    pub delivery_id: String,
+    pub event_id: String,
+    #[serde(default, flatten)]
+    pub extra_fields: BTreeMap<String, serde_json::Value>,
+}
+
+impl std::fmt::Debug for WebhookDeliveryResendAccepted {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("WebhookDeliveryResendAccepted { .. }")
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for WebhookDeliveryResendAccepted {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        struct ResponseVisitor;
+        impl<'de> serde::de::Visitor<'de> for ResponseVisitor {
+            type Value = WebhookDeliveryResendAccepted;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("a response object")
+            }
+            fn visit_map<M: serde::de::MapAccess<'de>>(
+                self,
+                mut map: M,
+            ) -> Result<Self::Value, M::Error> {
+                let mut field_0: Option<String> = None;
+                let mut field_1: Option<String> = None;
+                let mut extra_fields = BTreeMap::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    match key.as_str() {
+                        "delivery_id" => {
+                            if field_0.is_some() {
+                                return Err(serde::de::Error::duplicate_field("delivery_id"));
+                            }
+                            field_0 = Some(map.next_value()?);
+                        }
+                        "event_id" => {
+                            if field_1.is_some() {
+                                return Err(serde::de::Error::duplicate_field("event_id"));
+                            }
+                            field_1 = Some(map.next_value()?);
+                        }
+                        _ => {
+                            extra_fields.insert(key, map.next_value::<serde_json::Value>()?);
+                        }
+                    }
+                }
+                Ok(WebhookDeliveryResendAccepted {
+                    delivery_id: field_0.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("delivery_id")
+                    })?,
+                    event_id: field_1
+                        .ok_or_else(|| <M::Error as serde::de::Error>::missing_field("event_id"))?,
+                    extra_fields,
+                })
+            }
+        }
+        deserializer.deserialize_map(ResponseVisitor)
+    }
+}
+#[derive(Clone, serde::Serialize)]
+pub struct WebhookEvent {
+    pub id: String,
+    pub event_type: String,
+    pub created_at: i64,
+    pub resource_type: String,
+    pub resource_id: String,
+    #[serde(default, flatten)]
+    pub extra_fields: BTreeMap<String, serde_json::Value>,
+}
+
+impl std::fmt::Debug for WebhookEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("WebhookEvent { .. }")
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for WebhookEvent {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        struct ResponseVisitor;
+        impl<'de> serde::de::Visitor<'de> for ResponseVisitor {
+            type Value = WebhookEvent;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("a response object")
+            }
+            fn visit_map<M: serde::de::MapAccess<'de>>(
+                self,
+                mut map: M,
+            ) -> Result<Self::Value, M::Error> {
+                let mut field_0: Option<String> = None;
+                let mut field_1: Option<String> = None;
+                let mut field_2: Option<i64> = None;
+                let mut field_3: Option<String> = None;
+                let mut field_4: Option<String> = None;
+                let mut extra_fields = BTreeMap::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    match key.as_str() {
+                        "id" => {
+                            if field_0.is_some() {
+                                return Err(serde::de::Error::duplicate_field("id"));
+                            }
+                            field_0 = Some(map.next_value()?);
+                        }
+                        "event_type" => {
+                            if field_1.is_some() {
+                                return Err(serde::de::Error::duplicate_field("event_type"));
+                            }
+                            field_1 = Some(map.next_value()?);
+                        }
+                        "created_at" => {
+                            if field_2.is_some() {
+                                return Err(serde::de::Error::duplicate_field("created_at"));
+                            }
+                            field_2 = Some(map.next_value()?);
+                        }
+                        "resource_type" => {
+                            if field_3.is_some() {
+                                return Err(serde::de::Error::duplicate_field("resource_type"));
+                            }
+                            field_3 = Some(map.next_value()?);
+                        }
+                        "resource_id" => {
+                            if field_4.is_some() {
+                                return Err(serde::de::Error::duplicate_field("resource_id"));
+                            }
+                            field_4 = Some(map.next_value()?);
+                        }
+                        _ => {
+                            extra_fields.insert(key, map.next_value::<serde_json::Value>()?);
+                        }
+                    }
+                }
+                Ok(WebhookEvent {
+                    id: field_0
+                        .ok_or_else(|| <M::Error as serde::de::Error>::missing_field("id"))?,
+                    event_type: field_1.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("event_type")
+                    })?,
+                    created_at: field_2.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("created_at")
+                    })?,
+                    resource_type: field_3.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("resource_type")
+                    })?,
+                    resource_id: field_4.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("resource_id")
+                    })?,
+                    extra_fields,
+                })
+            }
+        }
+        deserializer.deserialize_map(ResponseVisitor)
+    }
+}
+#[derive(Clone, serde::Serialize)]
+pub struct WebhookEventDetail {
+    pub payload: String,
+    pub id: String,
+    pub event_type: String,
+    pub created_at: i64,
+    pub resource_type: String,
+    pub resource_id: String,
+    #[serde(default, flatten)]
+    pub extra_fields: BTreeMap<String, serde_json::Value>,
+}
+
+impl std::fmt::Debug for WebhookEventDetail {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("WebhookEventDetail { .. }")
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for WebhookEventDetail {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        struct ResponseVisitor;
+        impl<'de> serde::de::Visitor<'de> for ResponseVisitor {
+            type Value = WebhookEventDetail;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("a response object")
+            }
+            fn visit_map<M: serde::de::MapAccess<'de>>(
+                self,
+                mut map: M,
+            ) -> Result<Self::Value, M::Error> {
+                let mut field_0: Option<String> = None;
+                let mut field_1: Option<String> = None;
+                let mut field_2: Option<String> = None;
+                let mut field_3: Option<i64> = None;
+                let mut field_4: Option<String> = None;
+                let mut field_5: Option<String> = None;
+                let mut extra_fields = BTreeMap::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    match key.as_str() {
+                        "payload" => {
+                            if field_0.is_some() {
+                                return Err(serde::de::Error::duplicate_field("payload"));
+                            }
+                            field_0 = Some(map.next_value()?);
+                        }
+                        "id" => {
+                            if field_1.is_some() {
+                                return Err(serde::de::Error::duplicate_field("id"));
+                            }
+                            field_1 = Some(map.next_value()?);
+                        }
+                        "event_type" => {
+                            if field_2.is_some() {
+                                return Err(serde::de::Error::duplicate_field("event_type"));
+                            }
+                            field_2 = Some(map.next_value()?);
+                        }
+                        "created_at" => {
+                            if field_3.is_some() {
+                                return Err(serde::de::Error::duplicate_field("created_at"));
+                            }
+                            field_3 = Some(map.next_value()?);
+                        }
+                        "resource_type" => {
+                            if field_4.is_some() {
+                                return Err(serde::de::Error::duplicate_field("resource_type"));
+                            }
+                            field_4 = Some(map.next_value()?);
+                        }
+                        "resource_id" => {
+                            if field_5.is_some() {
+                                return Err(serde::de::Error::duplicate_field("resource_id"));
+                            }
+                            field_5 = Some(map.next_value()?);
+                        }
+                        _ => {
+                            extra_fields.insert(key, map.next_value::<serde_json::Value>()?);
+                        }
+                    }
+                }
+                Ok(WebhookEventDetail {
+                    payload: field_0
+                        .ok_or_else(|| <M::Error as serde::de::Error>::missing_field("payload"))?,
+                    id: field_1
+                        .ok_or_else(|| <M::Error as serde::de::Error>::missing_field("id"))?,
+                    event_type: field_2.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("event_type")
+                    })?,
+                    created_at: field_3.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("created_at")
+                    })?,
+                    resource_type: field_4.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("resource_type")
+                    })?,
+                    resource_id: field_5.ok_or_else(|| {
+                        <M::Error as serde::de::Error>::missing_field("resource_id")
+                    })?,
+                    extra_fields,
+                })
+            }
+        }
+        deserializer.deserialize_map(ResponseVisitor)
+    }
+}
+#[derive(Clone, serde::Serialize)]
+pub struct WebhookEventListResponse {
+    pub list: Vec<WebhookEvent>,
+    pub page: WebhookDeliveryPage,
+    #[serde(default, flatten)]
+    pub extra_fields: BTreeMap<String, serde_json::Value>,
+}
+
+impl std::fmt::Debug for WebhookEventListResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("WebhookEventListResponse { .. }")
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for WebhookEventListResponse {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        struct ResponseVisitor;
+        impl<'de> serde::de::Visitor<'de> for ResponseVisitor {
+            type Value = WebhookEventListResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                formatter.write_str("a response object")
+            }
+            fn visit_map<M: serde::de::MapAccess<'de>>(
+                self,
+                mut map: M,
+            ) -> Result<Self::Value, M::Error> {
+                let mut field_0: Option<Vec<WebhookEvent>> = None;
+                let mut field_1: Option<WebhookDeliveryPage> = None;
+                let mut extra_fields = BTreeMap::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    match key.as_str() {
+                        "list" => {
+                            if field_0.is_some() {
+                                return Err(serde::de::Error::duplicate_field("list"));
+                            }
+                            field_0 = Some(map.next_value()?);
+                        }
+                        "page" => {
+                            if field_1.is_some() {
+                                return Err(serde::de::Error::duplicate_field("page"));
+                            }
+                            field_1 = Some(map.next_value()?);
+                        }
+                        _ => {
+                            extra_fields.insert(key, map.next_value::<serde_json::Value>()?);
+                        }
+                    }
+                }
+                Ok(WebhookEventListResponse {
+                    list: field_0
+                        .ok_or_else(|| <M::Error as serde::de::Error>::missing_field("list"))?,
+                    page: field_1
+                        .ok_or_else(|| <M::Error as serde::de::Error>::missing_field("page"))?,
                     extra_fields,
                 })
             }

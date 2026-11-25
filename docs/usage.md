@@ -82,3 +82,10 @@ and preserve the corresponding options when navigating pages.
 
 Diagnostics report only operation metadata, attempts, elapsed time, status,
 and Request-Id. They omit IDs, credentials, query strings, and payloads.
+
+## Updating from 0.1.x
+
+`Charge` includes the optional `boleto_settlement` field. If you construct a
+`Charge` with a struct literal, supply `boleto_settlement: None` when the
+charge has no settlement data. API responses that omit the field deserialize
+with `None`.

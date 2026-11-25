@@ -28,6 +28,12 @@ impl RaimsClient {
     pub fn statements(&self) -> StatementsService<'_> {
         StatementsService { client: self }
     }
+    pub fn webhook_deliveries(&self) -> WebhookDeliveriesService<'_> {
+        WebhookDeliveriesService { client: self }
+    }
+    pub fn webhook_events(&self) -> WebhookEventsService<'_> {
+        WebhookEventsService { client: self }
+    }
     pub fn webhook_event_types(&self) -> WebhookEventTypesService<'_> {
         WebhookEventTypesService { client: self }
     }
@@ -1019,6 +1025,310 @@ impl StatementsService<'_> {
                 "GetStatement",
                 &[("id", id)],
                 &serde_json::json!({}),
+                options,
+            )
+            .await
+    }
+}
+#[derive(Clone, Copy)]
+pub struct WebhookDeliveriesService<'a> {
+    client: &'a RaimsClient,
+}
+impl WebhookDeliveriesService<'_> {
+    /// List webhook deliveries.
+    pub async fn list(
+        &self,
+        params: &params::ListWebhookDeliveriesParams,
+    ) -> Result<ApiResponse<models::WebhookDeliveryListResponse>, Error> {
+        self.list_with_options(params, &RequestOptions::default())
+            .await
+    }
+    /// List webhook deliveries, using explicit request options.
+    pub async fn list_with_options(
+        &self,
+        params: &params::ListWebhookDeliveriesParams,
+        options: &RequestOptions,
+    ) -> Result<ApiResponse<models::WebhookDeliveryListResponse>, Error> {
+        self.client
+            .request("ListWebhookDeliveries", &[], params, options)
+            .await
+    }
+    /// Create a lazy pager that preserves this operation's filters.
+    pub fn list_pages(
+        &self,
+        params: &params::ListWebhookDeliveriesParams,
+    ) -> Result<Pager<models::WebhookDeliveryListResponse>, Error> {
+        self.list_pages_with_options(params, &RequestOptions::default())
+    }
+    /// Create a lazy pager with explicit request options.
+    pub fn list_pages_with_options(
+        &self,
+        params: &params::ListWebhookDeliveriesParams,
+        options: &RequestOptions,
+    ) -> Result<Pager<models::WebhookDeliveryListResponse>, Error> {
+        let params = serde_json::to_value(params)
+            .map_err(|_| Error::validation("Request parameters cannot be serialized."))?;
+        Pager::new(
+            self.client.clone(),
+            "ListWebhookDeliveries",
+            vec![],
+            params,
+            options.clone(),
+        )
+    }
+    /// Retrieve a delivery.
+    pub async fn retrieve(
+        &self,
+        delivery_id: &str,
+    ) -> Result<ApiResponse<models::WebhookDelivery>, Error> {
+        self.retrieve_with_options(delivery_id, &RequestOptions::default())
+            .await
+    }
+    /// Retrieve a delivery, using explicit request options.
+    pub async fn retrieve_with_options(
+        &self,
+        delivery_id: &str,
+        options: &RequestOptions,
+    ) -> Result<ApiResponse<models::WebhookDelivery>, Error> {
+        self.client
+            .request(
+                "GetWebhookDelivery",
+                &[("delivery_id", delivery_id)],
+                &serde_json::json!({}),
+                options,
+            )
+            .await
+    }
+    /// List the attempts for a delivery.
+    pub async fn list_attempts(
+        &self,
+        delivery_id: &str,
+        params: &params::ListWebhookDeliveryAttemptsParams,
+    ) -> Result<ApiResponse<models::WebhookAttemptListResponse>, Error> {
+        self.list_attempts_with_options(delivery_id, params, &RequestOptions::default())
+            .await
+    }
+    /// List the attempts for a delivery, using explicit request options.
+    pub async fn list_attempts_with_options(
+        &self,
+        delivery_id: &str,
+        params: &params::ListWebhookDeliveryAttemptsParams,
+        options: &RequestOptions,
+    ) -> Result<ApiResponse<models::WebhookAttemptListResponse>, Error> {
+        self.client
+            .request(
+                "ListWebhookDeliveryAttempts",
+                &[("delivery_id", delivery_id)],
+                params,
+                options,
+            )
+            .await
+    }
+    /// Create a lazy pager that preserves this operation's filters.
+    pub fn list_attempts_pages(
+        &self,
+        delivery_id: &str,
+        params: &params::ListWebhookDeliveryAttemptsParams,
+    ) -> Result<Pager<models::WebhookAttemptListResponse>, Error> {
+        self.list_attempts_pages_with_options(delivery_id, params, &RequestOptions::default())
+    }
+    /// Create a lazy pager with explicit request options.
+    pub fn list_attempts_pages_with_options(
+        &self,
+        delivery_id: &str,
+        params: &params::ListWebhookDeliveryAttemptsParams,
+        options: &RequestOptions,
+    ) -> Result<Pager<models::WebhookAttemptListResponse>, Error> {
+        let params = serde_json::to_value(params)
+            .map_err(|_| Error::validation("Request parameters cannot be serialized."))?;
+        Pager::new(
+            self.client.clone(),
+            "ListWebhookDeliveryAttempts",
+            vec![("delivery_id".to_owned(), delivery_id.to_owned())],
+            params,
+            options.clone(),
+        )
+    }
+    /// Retrieve an attempt.
+    pub async fn retrieve_attempt(
+        &self,
+        delivery_id: &str,
+        attempt_id: &str,
+    ) -> Result<ApiResponse<models::WebhookAttemptDetail>, Error> {
+        self.retrieve_attempt_with_options(delivery_id, attempt_id, &RequestOptions::default())
+            .await
+    }
+    /// Retrieve an attempt, using explicit request options.
+    pub async fn retrieve_attempt_with_options(
+        &self,
+        delivery_id: &str,
+        attempt_id: &str,
+        options: &RequestOptions,
+    ) -> Result<ApiResponse<models::WebhookAttemptDetail>, Error> {
+        self.client
+            .request(
+                "GetWebhookDeliveryAttempt",
+                &[("delivery_id", delivery_id), ("attempt_id", attempt_id)],
+                &serde_json::json!({}),
+                options,
+            )
+            .await
+    }
+    /// Resend an event.
+    pub async fn resend(
+        &self,
+        delivery_id: &str,
+    ) -> Result<ApiResponse<models::WebhookDeliveryResendAccepted>, Error> {
+        self.resend_with_options(delivery_id, &RequestOptions::default())
+            .await
+    }
+    /// Resend an event, using explicit request options.
+    pub async fn resend_with_options(
+        &self,
+        delivery_id: &str,
+        options: &RequestOptions,
+    ) -> Result<ApiResponse<models::WebhookDeliveryResendAccepted>, Error> {
+        self.client
+            .request(
+                "ResendWebhookDelivery",
+                &[("delivery_id", delivery_id)],
+                &serde_json::json!({}),
+                options,
+            )
+            .await
+    }
+    /// Resend multiple deliveries.
+    pub async fn resend_many(
+        &self,
+        params: &params::ResendWebhookDeliveriesParams,
+    ) -> Result<ApiResponse<models::WebhookBulkResendAccepted>, Error> {
+        self.resend_many_with_options(params, &RequestOptions::default())
+            .await
+    }
+    /// Resend multiple deliveries, using explicit request options.
+    pub async fn resend_many_with_options(
+        &self,
+        params: &params::ResendWebhookDeliveriesParams,
+        options: &RequestOptions,
+    ) -> Result<ApiResponse<models::WebhookBulkResendAccepted>, Error> {
+        self.client
+            .request("ResendWebhookDeliveries", &[], params, options)
+            .await
+    }
+    /// Advance the next attempt.
+    pub async fn advance(
+        &self,
+        delivery_id: &str,
+    ) -> Result<ApiResponse<models::WebhookAdvanceAccepted>, Error> {
+        self.advance_with_options(delivery_id, &RequestOptions::default())
+            .await
+    }
+    /// Advance the next attempt, using explicit request options.
+    pub async fn advance_with_options(
+        &self,
+        delivery_id: &str,
+        options: &RequestOptions,
+    ) -> Result<ApiResponse<models::WebhookAdvanceAccepted>, Error> {
+        self.client
+            .request(
+                "AdvanceWebhookDelivery",
+                &[("delivery_id", delivery_id)],
+                &serde_json::json!({}),
+                options,
+            )
+            .await
+    }
+}
+#[derive(Clone, Copy)]
+pub struct WebhookEventsService<'a> {
+    client: &'a RaimsClient,
+}
+impl WebhookEventsService<'_> {
+    /// List webhook events.
+    pub async fn list(
+        &self,
+        params: &params::ListWebhookEventsParams,
+    ) -> Result<ApiResponse<models::WebhookEventListResponse>, Error> {
+        self.list_with_options(params, &RequestOptions::default())
+            .await
+    }
+    /// List webhook events, using explicit request options.
+    pub async fn list_with_options(
+        &self,
+        params: &params::ListWebhookEventsParams,
+        options: &RequestOptions,
+    ) -> Result<ApiResponse<models::WebhookEventListResponse>, Error> {
+        self.client
+            .request("ListWebhookEvents", &[], params, options)
+            .await
+    }
+    /// Create a lazy pager that preserves this operation's filters.
+    pub fn list_pages(
+        &self,
+        params: &params::ListWebhookEventsParams,
+    ) -> Result<Pager<models::WebhookEventListResponse>, Error> {
+        self.list_pages_with_options(params, &RequestOptions::default())
+    }
+    /// Create a lazy pager with explicit request options.
+    pub fn list_pages_with_options(
+        &self,
+        params: &params::ListWebhookEventsParams,
+        options: &RequestOptions,
+    ) -> Result<Pager<models::WebhookEventListResponse>, Error> {
+        let params = serde_json::to_value(params)
+            .map_err(|_| Error::validation("Request parameters cannot be serialized."))?;
+        Pager::new(
+            self.client.clone(),
+            "ListWebhookEvents",
+            vec![],
+            params,
+            options.clone(),
+        )
+    }
+    /// Retrieve a webhook event.
+    pub async fn retrieve(
+        &self,
+        event_id: &str,
+    ) -> Result<ApiResponse<models::WebhookEventDetail>, Error> {
+        self.retrieve_with_options(event_id, &RequestOptions::default())
+            .await
+    }
+    /// Retrieve a webhook event, using explicit request options.
+    pub async fn retrieve_with_options(
+        &self,
+        event_id: &str,
+        options: &RequestOptions,
+    ) -> Result<ApiResponse<models::WebhookEventDetail>, Error> {
+        self.client
+            .request(
+                "GetWebhookEvent",
+                &[("event_id", event_id)],
+                &serde_json::json!({}),
+                options,
+            )
+            .await
+    }
+    /// Send an event to a webhook.
+    pub async fn deliver(
+        &self,
+        event_id: &str,
+        params: &params::DeliverWebhookEventParams,
+    ) -> Result<ApiResponse<models::WebhookDeliveryResendAccepted>, Error> {
+        self.deliver_with_options(event_id, params, &RequestOptions::default())
+            .await
+    }
+    /// Send an event to a webhook, using explicit request options.
+    pub async fn deliver_with_options(
+        &self,
+        event_id: &str,
+        params: &params::DeliverWebhookEventParams,
+        options: &RequestOptions,
+    ) -> Result<ApiResponse<models::WebhookDeliveryResendAccepted>, Error> {
+        self.client
+            .request(
+                "DeliverWebhookEvent",
+                &[("event_id", event_id)],
+                params,
                 options,
             )
             .await

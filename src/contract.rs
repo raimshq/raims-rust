@@ -51,19 +51,35 @@ fn validate(value: &Value, schema: &Value, input: bool, depth: usize) -> Result<
         let target = contract()["schemas"].get(name).ok_or_else(fail)?;
         return validate(value, target, input, depth + 1);
     }
-    if let Some(variants) = schema
-        .get("anyOf")
-        .or_else(|| schema.get("oneOf"))
-        .and_then(Value::as_array)
-    {
-        let count = variants
-            .iter()
-            .filter(|s| validate(value, s, input, depth + 1).is_ok())
-            .count();
-        if count == 0 || (schema.get("oneOf").is_some() && count != 1) {
+    if let Some(variants) = schema.get("oneOf").and_then(Value::as_array) {
+        let text = value.as_str().ok_or_else(fail)?;
+        let mut matches = 0;
+        for variant in variants {
+            let pattern = variant
+                .get("pattern")
+                .and_then(Value::as_str)
+                .ok_or_else(fail)?;
+            if Regex::new(&format!(r"\A(?:{pattern})\z"))
+                .map_err(|_| fail())?
+                .is_match(text)
+            {
+                matches += 1;
+            }
+        }
+        if matches != 1 {
             return Err(fail());
         }
         return Ok(());
+    }
+    if let Some(variants) = schema.get("anyOf").and_then(Value::as_array) {
+        return if variants
+            .iter()
+            .any(|variant| validate(value, variant, input, depth + 1).is_ok())
+        {
+            Ok(())
+        } else {
+            Err(fail())
+        };
     }
     if let Some(parts) = schema.get("allOf").and_then(Value::as_array) {
         for part in parts {
@@ -108,6 +124,17 @@ fn validate(value: &Value, schema: &Value, input: bool, depth: usize) -> Result<
                     .any(|key| !values.contains_key(key))
                 {
                     return Err(fail());
+                }
+            }
+            if let Some(dependencies) = schema.get("dependentRequired").and_then(Value::as_object) {
+                for (key, required) in dependencies {
+                    if values.contains_key(key) {
+                        for field in required.as_array().ok_or_else(fail)? {
+                            if !values.contains_key(field.as_str().ok_or_else(fail)?) {
+                                return Err(fail());
+                            }
+                        }
+                    }
                 }
             }
             let properties = schema.get("properties").and_then(Value::as_object);
