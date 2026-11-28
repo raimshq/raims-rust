@@ -1,5 +1,6 @@
 """Verify canonical crate bytes and publish stable Rust releases to crates.io."""
 import argparse
+from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import gzip
 import io
@@ -218,25 +219,31 @@ def upload_release_asset(identifier, name, raw):
         require(len(existing) == 1 and public_download(existing[0]['browser_download_url']) == raw,
                 'Release asset creation was not confirmed; inspect the release before retrying.')
 
+def verify_release_assets(assets, files, message):
+    selected = [(assets[name]['browser_download_url'], raw) for name, raw in files.items() if name in assets]
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        received = executor.map(public_download, (url for url, _ in selected))
+        for (_, expected), actual in zip(selected, received, strict=True):
+            require(expected == actual, message)
+
+
 def release_files(value, files, create_missing=False):
     rows = github('releases/' + str(value['releaseId'])).get('assets', [])
     assets = {asset['name']: asset for asset in rows}
     expected = set(files) | {'SHA256SUMS'}
     require(len(assets) == len(rows) and set(assets).issubset(expected), 'The release contains unexpected or duplicate assets.')
     complete = dict(files, SHA256SUMS=''.join(digest(files[name]) + '  ' + name + '\n' for name in sorted(files)).encode())
-    for name, raw in complete.items():
-        if name in assets:
-            require(public_download(assets[name]['browser_download_url']) == raw, 'An existing release asset differs from approved CI bytes.')
+    verify_release_assets(assets, complete, 'An existing release asset differs from approved CI bytes.')
     missing = set(complete) - set(assets)
-    require(not missing or create_missing, 'The approved crate assets are missing from the release.')
+    if not missing:
+        return
+    require(create_missing, 'The approved crate assets are missing from the release.')
     for name in sorted(missing):
         upload_release_asset(value['releaseId'], name, complete[name])
-    if missing:
-        rows = github('releases/' + str(value['releaseId'])).get('assets', [])
-        assets = {asset['name']: asset for asset in rows}
+    rows = github('releases/' + str(value['releaseId'])).get('assets', [])
+    assets = {asset['name']: asset for asset in rows}
     require(len(assets) == len(rows) and set(assets) == expected, 'The release asset inventory differs.')
-    for name, raw in complete.items():
-        require(public_download(assets[name]['browser_download_url']) == raw, 'A public release asset differs.')
+    verify_release_assets(assets, complete, 'A public release asset differs.')
 
 
 def metadata_bytes(raw, value):
@@ -469,7 +476,7 @@ def stage(source, output):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=('stage', 'prepare', 'verify', 'credential', 'publish', 'confirm'))
+    parser.add_argument('command', choices=('stage', 'prepare', 'verify', 'credential', 'credential-config', 'publish', 'confirm'))
     parser.add_argument('--source', type=Path, required=True)
     parser.add_argument('--artifact', type=Path, required=True)
     args = parser.parse_args()
@@ -478,6 +485,11 @@ def main():
     require(workspace / '.tmp' in artifact.parents, 'Release artifacts must stay in workspace .tmp.')
     if args.command == 'stage':
         stage(source, artifact)
+        return 0
+    if args.command == 'credential-config':
+        # The preceding token-free verify step checks the release and artifact.
+        # This step only checks the credential configuration in the job environment.
+        verify_credential()
         return 0
     value = context(source)
     proven = validation(value['sourceRevision'])

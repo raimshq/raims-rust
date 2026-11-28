@@ -12,7 +12,7 @@ concurrency:
 env:
   PYTHONDONTWRITEBYTECODE: '1'
   PYTHONOPTIMIZE: '0'
-  RAIMS_RUST_TOOLKIT_REF: 4dc550a0e55c52dd2c8c8f7662289890ae526a8d
+  RAIMS_RUST_TOOLKIT_REF: d1257827c06210275b9edb955fb1611fed41b4b5
 jobs:
   validateRelease:
     name: validateRelease
@@ -102,11 +102,10 @@ jobs:
       id: verify
     - name: Validate permanent crates.io credential configuration
       env:
-        GITHUB_TOKEN: ${{ github.token }}
         CRATES_IO_OWNER: ${{ vars.CRATES_IO_OWNER }}
         CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
         CRATES_IO_TOKEN_POLICY: ${{ vars.CRATES_IO_TOKEN_POLICY }}
-      run: python Raims-Rust/scripts/release.py credential --source Raims-Rust --artifact .tmp/raims-rust-sdk/crates-upload
+      run: python Raims-Rust/scripts/release.py credential-config --source Raims-Rust --artifact .tmp/raims-rust-sdk/crates-upload
     - name: Publish the exact approved crate
       env:
         GITHUB_TOKEN: ${{ github.token }}
